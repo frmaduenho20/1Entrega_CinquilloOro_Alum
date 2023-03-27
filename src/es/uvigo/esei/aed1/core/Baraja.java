@@ -18,7 +18,8 @@ public class Baraja {
         for (int i = 0; i <= Carta.Palo.values().length; i++) {
             for (int j = 0; j < CARTAS_PALO; j++) {
                 c = new Carta(Carta.Palo.values()[i], j);
-                cartas[i] = c;  
+                cartas[i] = c; 
+                System.out.println(cartas[i]);
             }    
         }
     }
