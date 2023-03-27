@@ -3,7 +3,7 @@
  * Se recomienda una implementación modular.
  */
 
-//Esto son cambios
+//Esto son cambio
 
 package es.uvigo.esei.aed1.core;
 
