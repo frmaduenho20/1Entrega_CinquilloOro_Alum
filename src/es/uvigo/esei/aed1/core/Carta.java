@@ -7,6 +7,7 @@ package es.uvigo.esei.aed1.core;
 
 public class Carta {
     public enum Palo{OROS, ESPADAS, COPAS, BASTOS};
+    //buenas tardes
     private Palo palo; 
     private int valor;
 
