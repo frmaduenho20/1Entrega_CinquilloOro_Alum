@@ -2,7 +2,7 @@
  * Representa una carta, formada por un número y su palo correspondiente
  */
 
-
+//Comentario github
 package es.uvigo.esei.aed1.core;
 
 public class Carta {
