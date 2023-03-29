@@ -57,9 +57,22 @@ public class IU {
 
 
     public Collection<String> pedirDatosJugadores(){
-
-
-
+        int numJugadores = 0;
+        do {
+            System.out.println("Cuantos jugadores tendremos en la partida?");
+            numJugadores = leeNum("Selecciona 3 o 4");
+        } while (numJugadores != 3 && numJugadores != 4);
+        
+        String nombreJugador = "";
+        
+        for (int i = 0; i < numJugadores; i++) {
+            do {
+                nombreJugador = leeString("Introduce el nombre del jugador " + i+1);
+            } while (nombreJugador.trim().equals(""));
+            //Agregar jugador a la colección
+            
+        }
+        return !!! Devolver a jugador o clase correspondiente cuantos son y sus nombres;
     }
 
 
@@ -69,7 +82,7 @@ public class IU {
     }
 
     public void mostrarJugadores(Collection<Jugador> jugadores){
-
+        //mostrar la colección de jugadores creada arriba
     }
    
     
