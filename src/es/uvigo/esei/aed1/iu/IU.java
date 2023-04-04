@@ -7,7 +7,10 @@ package es.uvigo.esei.aed1.iu;
 
 import es.uvigo.esei.aed1.core.Jugador;
 import java.util.Collection;
+import cola.*;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class IU {
@@ -63,16 +66,17 @@ public class IU {
             numJugadores = leeNum("Selecciona 3 o 4");
         } while (numJugadores != 3 && numJugadores != 4);
         
-        String nombreJugador = "";
-        
+        List<String> nombresJugadores = new LinkedList<>();
+        String nombreJugador;
+
         for (int i = 0; i < numJugadores; i++) {
             do {
                 nombreJugador = leeString("Introduce el nombre del jugador " + i+1);
             } while (nombreJugador.trim().equals(""));
-            //Agregar jugador a la colección
-            
+            //Agregar jugador a la cola
+            nombresJugadores.add(nombreJugador);
         }
-        return !!! Devolver a jugador o clase correspondiente cuantos son y sus nombres;
+        return nombresJugadores;
     }
 
 
