@@ -5,13 +5,19 @@
  */
 
 package es.uvigo.esei.aed1.core;
+import java.util.LinkedList;
 
 public class Baraja {
     public final int CARTAS_BARAJA=48;
     public final int CARTAS_PALO=12;
     Carta c;
-    private Carta[] cartas;
-
+    ArrayList<Carta> cartas = new ArrayList<String>();
+    cartas.add("Volvo");
+    
+    
+    
+//    System.out.println(cartas);
+    
     public Baraja(Carta[] cartas) {
         cartas = new Carta[CARTAS_BARAJA];
         
