@@ -3,13 +3,14 @@
  * Se recomienda una implementación modular.
  */
 
-package es.uvigo.esei.aed1.iu;
+package es.uvigo.esei.aed1.core;
 import cola.*;
 import java.util.Collection;
 
 import cola.Cola;
 import es.uvigo.esei.aed1.core.Baraja;
 import es.uvigo.esei.aed1.core.Jugador;
+import es.uvigo.esei.aed1.iu.IU;
 
 
 public class Juego{
