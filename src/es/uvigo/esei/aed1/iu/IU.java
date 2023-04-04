@@ -57,25 +57,33 @@ public class IU {
         System.out.printf(msg, args);
     }
 
-
-
-    public Collection<String> pedirDatosJugadores(){
-        int numJugadores = 0;
+    public int getNumJugadores(){
+       int numJugadores = 0;
         do {
             System.out.println("Cuantos jugadores tendremos en la partida?");
             numJugadores = leeNum("Selecciona 3 o 4");
         } while (numJugadores != 3 && numJugadores != 4);
         
+        return numJugadores;
+    }
+
+    public Collection<String> pedirDatosJugadores(){
+
         List<String> nombresJugadores = new LinkedList<>();
         String nombreJugador;
 
-        for (int i = 0; i < numJugadores; i++) {
+        for (int i = 0; i < getNumJugadores(); i++) {
             do {
                 nombreJugador = leeString("Introduce el nombre del jugador " + i+1);
             } while (nombreJugador.trim().equals(""));
             //Agregar jugador a la cola
             nombresJugadores.add(nombreJugador);
         }
+        return nombresJugadores;
+    }
+    
+    public Collection<String> pedirDatosJugadores2(){
+        
         return nombresJugadores;
     }
 
@@ -87,6 +95,7 @@ public class IU {
 
     public void mostrarJugadores(Collection<Jugador> jugadores){
         //mostrar la colección de jugadores creada arriba
+        
     }
    
     
