@@ -8,11 +8,13 @@ package es.uvigo.esei.aed1.core;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import es.uvigo.esei.aed1.iu.IU;
 
 public class Baraja {
+
     public final int CARTAS_BARAJA=48;
     public final int CARTAS_PALO=12;
-    private List<Carta> baraja;
+    private LinkedList<Carta> baraja;
     
     
 //    System.out.println(cartas);
@@ -22,33 +24,40 @@ public class Baraja {
         baraja = new LinkedList<>();
         Carta c;
         
-        for (int i = 0; i <= Carta.Palo.values().length; i++) {
-            for (int j = 0; j < CARTAS_PALO; j++) {  
+        for (int i = 0; i < Carta.Palo.values().length; i++) {
+            for (int j = 1; j <= CARTAS_PALO; j++) {  
                 c = new Carta(Carta.Palo.values()[i], j);
                 baraja.add(c);
             }    
         }
-        
     } 
     
-    // Método genérico para aleatorizar una lista en Java utilizando la reproducción aleatoria de Fisher-Yates
-    public static<E> void barajar(List<E> list)
-    {
-        Random random = new Random();
-        int n = list.size();
-
-        // empieza desde el principio de la lista
-        for (int i = 0; i < n - 1; i++)
-        {
-            // obtener un índice aleatorio `j` tal que `i <= j <= n`
-            int j = i + random.nextInt(n - i);
- 
-            // intercambiar el elemento en la i-ésima posición en la lista con el elemento en
-            // índice generado aleatoriamente `j`
-            E carta = list.get(i);
-            list.set(i, list.get(j));
-            list.set(j, carta);
+    public void barajar(){
+        Carta[] cartas = new Carta[CARTAS_BARAJA];
+        LinkedList<Carta> nuevaBaraja= new LinkedList<>();
+        
+        for(int i = 0; i < CARTAS_BARAJA; i++){
+            cartas[i] = baraja.remove(0);
         }
+        
+        int numCartas = CARTAS_BARAJA;
+        int posAleatoria;
+        
+        for(int i = 0; i < CARTAS_BARAJA; i++){
+            posAleatoria = (int) (Math.random() * ((CARTAS_BARAJA - 1) - i));
+            
+            nuevaBaraja.add(cartas[posAleatoria]);
+            
+            for(int j = posAleatoria; j < numCartas - 1; j++ ){
+                cartas[j] = cartas[j+1];
+            }
+            numCartas--;
+        }
+        baraja = nuevaBaraja;
+    }
+    
+    public Carta popCarta(){
+        return baraja.removeFirst();
     }
     
 }

@@ -4,8 +4,11 @@
 package es.uvigo.esei.aed1.core;
 import java.util.LinkedList;
 import java.util.List;
+
+
 public class Mano {
-    List<Carta> mano;
+    
+    LinkedList<Carta> mano;
     int numCartas;
 
     public Mano() {
@@ -30,7 +33,6 @@ public class Mano {
         numCartas--;
         return mano.remove(pos);
     }
-
     
 
     @Override

@@ -13,6 +13,6 @@ public class Main {
         IU iu = new IU();
         Juego cinquillo = new Juego(iu);
         cinquillo.jugar();
-        System.out.println(());
+        
     }   
 }

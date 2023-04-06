@@ -7,14 +7,18 @@
 //Prueba que hice en clase
 package es.uvigo.esei.aed1.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 
 public class Jugador {
     private final String nombreJugador;
-    private Mano mano;
+    private Mano mano = new Mano();
 
-    public Jugador(String nombreJugador, Mano mano) {
+    public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
-        mano = new Mano();
+        this.setMano(mano);
+
     }
 
     public String getNombreJugador() {
@@ -40,5 +44,15 @@ public class Jugador {
     public String toStringMano(){
         return mano.toString();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Jugador: ").append(nombreJugador);
+        sb.append("\nMano: \n").append(getMano()).append("\n");
+        
+        return sb.toString();
+    }
+ 
     
 }

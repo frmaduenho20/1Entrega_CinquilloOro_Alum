@@ -11,51 +11,162 @@ import cola.Cola;
 import es.uvigo.esei.aed1.core.Baraja;
 import es.uvigo.esei.aed1.core.Jugador;
 import es.uvigo.esei.aed1.iu.IU;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
 
 
 public class Juego{
   private final IU iu;
+  private Cola<Jugador> jugadores;
+  private int numJugadores;
+  private Baraja baraja;
     
     
 public Juego(IU iu){
     this.iu = iu;
-
+    this.jugadores = new EnlazadaCola();
+    this.numJugadores = pedirNumJugadores();
+    this.baraja = new Baraja();
 }
 
-public void jugar(){
-    int numJugadores = iu.getNumJugadores();
-    Cola<Jugador> jugadores = null;
-
-    
-}
-
-   
- public static Cola<Jugador> crearJugadores(Cola<Jugador> jugadores, int numJugadores, String[] nombresJugadores){
+    public void jugar() {
+        System.out.println("Creando Jugadores... ");
+        crearJugadores( iu.pedirDatosJugadores(numJugadores));
         
-        Baraja baraja = new Baraja(); 
-        baraja.barajar();                                       
+        System.out.println("Barajando...");
+        baraja.barajar();
         
-        int numCartas = numCartasPorJugador(numJugadores);
+        System.out.println("Repartiendo cartas...");
+        repartirCartas(jugadores, baraja);
         
-        List<Jugador> nuevosJugadores = new LinkedList<>();
-        for(int i = 0; i < numJugadores; i++){
-            Jugador jugador = new Jugador(nombresJugadores[i]);
-            
-            for(int j = 0; j < numCartas; j++){      
-                jugador.añadirCartaMano(baraja.popCarta());
-            }
-            
-            if(jugadores != null){
-                for(int k = 0; k < jugadores.get(i).getPuntuacionesRondasTamaño(); k++){
-                    jugador.añadirPuntuacion(jugadores.get(i).getPuntuacionRonda(k));
-                }
-                
-            }
-            
-            nuevosJugadores.add(jugador);                   
+        System.out.println("Mostrando jugadores con sus manos...");
+        for (int i = 0; i < numJugadores; i++) {
+            System.out.println(jugadores.primero().toString());
+            jugadores.insertar(jugadores.suprimir());
         }
         
-        return nuevosJugadores;
+        System.out.println("Empieza el jugador: " 
+                + jugadores.primero().getNombreJugador());
+        
+    }
+    public Cola<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(Cola<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public int getNumJugadores() {
+        return numJugadores;
+    }
+
+    public Baraja getBaraja() {
+        return baraja;
+    }
+ 
+    public int pedirNumJugadores(){
+       int numJugadores = 0;
+       
+        do {
+            System.out.println("Cuantos jugadores tendremos en la partida?");
+            numJugadores = iu.leeNum("Selecciona 3 o 4: ");
+        } while (numJugadores != 3 && numJugadores != 4);
+        
+        return numJugadores;
     }
     
+    public void crearJugadores(Collection<String> pedirDatosJugadores){
+        
+        Collection<String> nombresJugadores = pedirDatosJugadores;
+        
+        String [] nombres = new String[numJugadores];
+        nombres = nombresJugadores.toArray(nombres);
+        
+        
+        for (int i = 0; i < nombres.length; i++) {
+            Jugador j = new Jugador(nombres[i]);
+            jugadores.insertar(j);
+        }
+        
+    }
+    //    public static Cola<Jugador> crearJugadores(Cola<Jugador> jugadores, int numJugadores, String[] nombreJugadores){
+//        
+//        Baraja baraja = new Baraja(); 
+//        baraja.barajar();                                      
+//        
+//        int numCartas = numCartasPorJugador(numJugadores);
+//        
+//        List<Jugador> nuevosJugadores = new LinkedList<>();
+//        for(int i = 0; i < numJugadores; i++){
+//            Jugador jugador = new Jugador(nombresJugadores[i]);
+//            
+//            for(int j = 0; j < numCartas; j++){      
+//                jugador.añadirCartaMano(baraja.popCarta());
+//            }
+//            
+//            if(jugadores != null){
+//                for(int k = 0; k < jugadores.get(i).getPuntuacionesRondasTamaño(); k++){
+//                    jugador.añadirPuntuacion(jugadores.get(i).getPuntuacionRonda(k));
+//                }
+//                
+//            }
+//            
+//            nuevosJugadores.add(jugador);                   
+//        }
+//        
+//        return nuevosJugadores;
+//    }
+    
+    /**
+     * Reparte las cartas dependiendo de numero de jugadores
+     * si son 3 reparte 16 a cada jugador
+     * si son 4 reparte 12 a cada jugador
+     * 
+     * @param Cola de jugadores
+     * @param Lista baraja ya barajada
+     */
+    public void repartirCartas(Cola<Jugador> jugadores, Baraja baraja){
+        Jugador j;
+        int numCartasMano;
+        
+        if(numJugadores == 3){
+            numCartasMano = 16;
+        }else{
+            numCartasMano = 12;
+        }
+        
+        
+        for (int i = 0; i < jugadores.tamaño(); i++) {
+            j = jugadores.primero();
+            for (int k = 0; k < numCartasMano; k++) {
+                j.getMano().addCarta(baraja.popCarta());
+            }
+            jugadores.suprimir();
+            jugadores.insertar(j);
+        }
+    }
+    /**
+     * Selecciona aleatoriamente el jugador que empieza el jugador
+     * @param Cola de los jugadores
+     * @return jugador que empieza la partida
+     */
+    public Jugador empiezaJugador(Cola<Jugador> jugadores){
+        
+        Jugador j;
+        
+//        Random aleatorio = new Random(System.currentTimeMillis());
+        
+        int posAleatoria;
+        
+        posAleatoria = (int) (Math.random() * numJugadores) + 1;;
+
+        for (int k = 0; k == posAleatoria; k++){
+            j = jugadores.suprimir();
+            jugadores.insertar(j);
+        }
+        return jugadores.primero();
+    }
 }

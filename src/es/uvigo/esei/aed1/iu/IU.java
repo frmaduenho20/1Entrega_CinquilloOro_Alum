@@ -6,6 +6,7 @@
 package es.uvigo.esei.aed1.iu;
 
 import es.uvigo.esei.aed1.core.Jugador;
+import es.uvigo.esei.aed1.core.Juego;
 import java.util.Collection;
 import cola.*;
 import java.util.InputMismatchException;
@@ -56,9 +57,11 @@ public class IU {
     public void mostrarMensaje(String msg, Object... args) {
         System.out.printf(msg, args);
     }
-
+    
+    
     public int getNumJugadores(){
        int numJugadores = 0;
+       
         do {
             System.out.println("Cuantos jugadores tendremos en la partida?");
             numJugadores = leeNum("Selecciona 3 o 4");
@@ -67,14 +70,14 @@ public class IU {
         return numJugadores;
     }
 
-    public Collection<String> pedirDatosJugadores(){
+    public Collection<String> pedirDatosJugadores(int numJugadores){
 
         List<String> nombresJugadores = new LinkedList<>();
         String nombreJugador;
 
-        for (int i = 0; i < getNumJugadores(); i++) {
+        for (int i = 0; i < numJugadores; i++) {
             do {
-                nombreJugador = leeString("Introduce el nombre del jugador " + i+1);
+                nombreJugador = leeString("Introduce el nombre del jugador " + (i+1) + ": ");
             } while (nombreJugador.trim().equals(""));
             //Agregar jugador a la cola
             nombresJugadores.add(nombreJugador);
@@ -82,21 +85,16 @@ public class IU {
         return nombresJugadores;
     }
     
-    public Collection<String> pedirDatosJugadores2(){
-        
-        return nombresJugadores;
-    }
-
-
-
-    public void mostrarJugador(Jugador jugador){
-
-    }
-
-    public void mostrarJugadores(Collection<Jugador> jugadores){
-        //mostrar la colección de jugadores creada arriba
-        
-    }
-   
+//    public String [] pedirDatosJugadores2(int numJugadores){
+//        String [] nombreJugadores = new String[numJugadores];
+//        
+//        System.out.println("Introduciendo los nombre de los jugadores en orden.");
+//        
+//        for (int i = 0; i < nombreJugadores.length; i++) {
+//            nombreJugadores[i] = leeString("Introduce el nombre de jugador: ");
+//        }
+//        
+//        return nombreJugadores;
+//    }
     
 }
