@@ -67,7 +67,7 @@ public Juego(IU iu){
         return baraja;
     }
  
-    public int pedirNumJugadores(){
+    public int pedirNumJugadores(){ //Añadir si Escribe Cuatro, cuatro CUATRO...
        int numJugadores = 0;
        
         do {
