@@ -3,7 +3,7 @@
  */
 package es.uvigo.esei.aed1.core;
 import java.util.LinkedList;
-import java.util.List;
+//import java.util.List;
 
 
 public class Mano {

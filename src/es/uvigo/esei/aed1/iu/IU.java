@@ -5,10 +5,10 @@
 // 
 package es.uvigo.esei.aed1.iu;
 
-import es.uvigo.esei.aed1.core.Jugador;
-import es.uvigo.esei.aed1.core.Juego;
+//import es.uvigo.esei.aed1.core.Jugador;
+//import es.uvigo.esei.aed1.core.Juego;
 import java.util.Collection;
-import cola.*;
+//import cola.*;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,16 +85,5 @@ public class IU {
         return nombresJugadores;
     }
     
-//    public String [] pedirDatosJugadores2(int numJugadores){
-//        String [] nombreJugadores = new String[numJugadores];
-//        
-//        System.out.println("Introduciendo los nombre de los jugadores en orden.");
-//        
-//        for (int i = 0; i < nombreJugadores.length; i++) {
-//            nombreJugadores[i] = leeString("Introduce el nombre de jugador: ");
-//        }
-//        
-//        return nombreJugadores;
-//    }
     
 }

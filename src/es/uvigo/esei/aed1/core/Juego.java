@@ -8,13 +8,13 @@ import cola.*;
 import java.util.Collection;
 
 import cola.Cola;
-import es.uvigo.esei.aed1.core.Baraja;
-import es.uvigo.esei.aed1.core.Jugador;
+//import es.uvigo.esei.aed1.core.Baraja;
+//import es.uvigo.esei.aed1.core.Jugador;
 import es.uvigo.esei.aed1.iu.IU;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Random;
+//import java.util.LinkedList;
+//import java.util.List;
+//import java.util.ListIterator;
+//import java.util.Random;
 
 
 public class Juego{
@@ -85,40 +85,13 @@ public Juego(IU iu){
         String [] nombres = new String[numJugadores];
         nombres = nombresJugadores.toArray(nombres);
         
-        
+        Jugador j;
         for (int i = 0; i < nombres.length; i++) {
-            Jugador j = new Jugador(nombres[i]);
+            j = new Jugador(nombres[i]);
             jugadores.insertar(j);
         }
         
     }
-    //    public static Cola<Jugador> crearJugadores(Cola<Jugador> jugadores, int numJugadores, String[] nombreJugadores){
-//        
-//        Baraja baraja = new Baraja(); 
-//        baraja.barajar();                                      
-//        
-//        int numCartas = numCartasPorJugador(numJugadores);
-//        
-//        List<Jugador> nuevosJugadores = new LinkedList<>();
-//        for(int i = 0; i < numJugadores; i++){
-//            Jugador jugador = new Jugador(nombresJugadores[i]);
-//            
-//            for(int j = 0; j < numCartas; j++){      
-//                jugador.añadirCartaMano(baraja.popCarta());
-//            }
-//            
-//            if(jugadores != null){
-//                for(int k = 0; k < jugadores.get(i).getPuntuacionesRondasTamaño(); k++){
-//                    jugador.añadirPuntuacion(jugadores.get(i).getPuntuacionRonda(k));
-//                }
-//                
-//            }
-//            
-//            nuevosJugadores.add(jugador);                   
-//        }
-//        
-//        return nuevosJugadores;
-//    }
     
     /**
      * Reparte las cartas dependiendo de numero de jugadores

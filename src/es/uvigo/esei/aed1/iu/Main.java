@@ -1,7 +1,6 @@
 
 package es.uvigo.esei.aed1.iu;
 
-import es.uvigo.esei.aed1.core.Baraja;
 import es.uvigo.esei.aed1.core.Juego;
 
 

@@ -6,9 +6,9 @@
 
 package es.uvigo.esei.aed1.core;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import es.uvigo.esei.aed1.iu.IU;
+//import java.util.List;
+//import java.util.Random;
+//import es.uvigo.esei.aed1.iu.IU;
 
 public class Baraja {
 
@@ -16,8 +16,7 @@ public class Baraja {
     public final int CARTAS_PALO=12;
     private LinkedList<Carta> baraja;
     
-    
-//    System.out.println(cartas);
+
     
     public Baraja() {
 
@@ -34,7 +33,7 @@ public class Baraja {
     
     public void barajar(){
         Carta[] cartas = new Carta[CARTAS_BARAJA];
-        LinkedList<Carta> nuevaBaraja= new LinkedList<>();
+        LinkedList<Carta> nuevaBaraja = new LinkedList<>();
         
         for(int i = 0; i < CARTAS_BARAJA; i++){
             cartas[i] = baraja.remove(0);
