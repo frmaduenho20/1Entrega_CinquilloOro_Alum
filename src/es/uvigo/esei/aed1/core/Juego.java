@@ -48,7 +48,7 @@ public Juego(IU iu){
         }
         
         System.out.println("Empieza el jugador: " 
-                + jugadores.primero().getNombreJugador());
+                + empiezaJugador(jugadores).getNombreJugador());
         
     }
     public Cola<Jugador> getJugadores() {
@@ -162,8 +162,9 @@ public Juego(IU iu){
         int posAleatoria;
         
         posAleatoria = (int) (Math.random() * numJugadores) + 1;;
+        System.out.println("Posición del jugador que inicia :" + posAleatoria);//Borrar luego
 
-        for (int k = 0; k == posAleatoria; k++){
+        for (int k = 1; k < posAleatoria; k++){
             j = jugadores.suprimir();
             jugadores.insertar(j);
         }
