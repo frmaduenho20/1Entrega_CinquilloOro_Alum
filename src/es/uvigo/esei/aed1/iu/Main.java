@@ -5,7 +5,7 @@ import es.uvigo.esei.aed1.core.Juego;
 
 
 
-
+//Inicio de Entrega 2
 
 public class Main {
     public static void main(String[] args) {
