@@ -27,6 +27,7 @@ sort de Collections
 * https://moovi.uvigo.gal/pluginfile.php/1109705/mod_resource/content/1/TEMA7_ArrayListYComparable.pdf
 * 
 * https://jarroba.com/ordenar-un-arraylist-en-java/
+* Hacer los cambios de las notas del trabajo o del whatsapp
 * 
  * @author ferna
  */
