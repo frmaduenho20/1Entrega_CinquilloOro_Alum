@@ -18,7 +18,6 @@ public class Jugador {
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
         this.setMano(mano);
-
     }
 
     public String getNombreJugador() {
