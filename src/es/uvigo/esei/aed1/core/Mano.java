@@ -6,7 +6,7 @@ import java.util.LinkedList;
 //import java.util.List;
 
 
-public class Mano {
+public class Mano { //hacer privada
     
     LinkedList<Carta> mano;
     int numCartas;
