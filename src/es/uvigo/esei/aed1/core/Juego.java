@@ -105,7 +105,7 @@ public Juego(IU iu){
         Jugador j;
         int numCartasMano;
         
-        if(numJugadores == 3){
+        if(numJugadores == 3){  // hacer más genérico con NUMCARTASBARAJA / numJugadores
             numCartasMano = 16;
         }else{
             numCartasMano = 12;
@@ -113,11 +113,11 @@ public Juego(IU iu){
         
         
         for (int i = 0; i < jugadores.tamaño(); i++) {
-            j = jugadores.primero();
+            j = jugadores.primero(); // usar aquí suprimir
             for (int k = 0; k < numCartasMano; k++) {
-                j.getMano().addCarta(baraja.popCarta());
+                j.getMano().addCarta(baraja.popCarta()); // usar el j. añadir carta nuevo
             }
-            jugadores.suprimir();
+            jugadores.suprimir(); // quitar el suprimir porque ya se usa arriba
             jugadores.insertar(j);
         }
     }

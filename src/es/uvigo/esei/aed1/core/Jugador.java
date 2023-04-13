@@ -13,7 +13,7 @@ package es.uvigo.esei.aed1.core;
 
 public class Jugador {
     private final String nombreJugador;
-    private Mano mano = new Mano();
+    private Mano mano = new Mano(); //Sobra el new mano y hay que meterlo en el constructor this.mano = new Mano()
 
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
@@ -36,7 +36,7 @@ public class Jugador {
         return mano.getNumCartas();
     }
     
-    public Carta sacarCartaMano(int pos){
+    public Carta sacarCartaMano(int pos){ // crear añadir carta y repartir según este nuevo método
         return mano.sacarCarta(pos);
     }
     

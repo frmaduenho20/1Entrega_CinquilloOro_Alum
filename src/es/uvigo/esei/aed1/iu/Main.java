@@ -29,11 +29,9 @@ sort de Collections
 * https://jarroba.com/ordenar-un-arraylist-en-java/
 * Hacer los cambios de las notas del trabajo o del whatsapp
 * 
-* Cambio desde netbeans a kraken
+* Hacer los javadocs automáticos
 * 
-* Push netbeans
-* 
-* Push netbeans al movil
+* Borrar lo comontado innecesario
 * 
  * @author ferna
  */

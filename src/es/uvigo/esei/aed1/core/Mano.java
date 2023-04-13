@@ -8,8 +8,8 @@ import java.util.LinkedList;
 
 public class Mano { //hacer privada
     
-    LinkedList<Carta> mano;
-    int numCartas;
+    LinkedList<Carta> mano; //Con list llega como interfaz y luego creamos en el constructor con la clase LinkedList
+    int numCartas; // Sobra porque se usa el size, eliminar también getters y modificar donde aparezca
 
     public Mano() {
        mano = new LinkedList<>();

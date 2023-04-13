@@ -70,7 +70,7 @@ public class IU {
         return numJugadores;
     }
 
-    public Collection<String> pedirDatosJugadores(int numJugadores){
+    public Collection<String> pedirDatosJugadores(int numJugadores){ // no pedir el numJugadores si no que llamar al método getNumJugadores
 
         List<String> nombresJugadores = new LinkedList<>();
         String nombreJugador;
