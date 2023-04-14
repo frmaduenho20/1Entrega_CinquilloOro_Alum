@@ -19,9 +19,13 @@ public class Mesa {
 
     
 	// mostrar el estado de la mesa
-	@Override
-    public String toString(){
-	}
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Mesa{");
+        sb.append('}');
+        return sb.toString();
+    }
 	
     
 }
