@@ -19,7 +19,10 @@ public class Mesa {
 
     
 	// mostrar el estado de la mesa
+<<<<<<< HEAD
         //sandbox
+=======
+>>>>>>> Entrega2
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
