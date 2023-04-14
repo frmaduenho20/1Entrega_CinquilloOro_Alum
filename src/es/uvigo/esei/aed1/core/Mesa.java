@@ -17,11 +17,15 @@ public class Mesa {
 
 	//añadir más funcionalidades
 
-    
-	// mostrar el estado de la mesa
-	@Override
-    public String toString(){
-	}
+
+	// mostrar el estado de la mesa 
+    @Override 
+    public String toString() { 
+        StringBuilder sb = new StringBuilder(); 
+        sb.append("Mesa{"); 
+        sb.append('}'); 
+        return sb.toString(); 
+    } 
 	
     
 }
