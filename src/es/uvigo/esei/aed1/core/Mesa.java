@@ -10,13 +10,15 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import es.uvigo.esei.aed1.core.Carta;
 
 public class Mesa {
     private Deque<Carta> oros;
-    private Deque<Carta> bastos;
-    private Deque<Carta> copas;
     private Deque<Carta> espadas;
-    private List<Deque>palos;
+    private Deque<Carta> copas;
+    private Deque<Carta> bastos;
+    
+    private List<Deque> palos;
     
     
 	
@@ -26,9 +28,9 @@ public class Mesa {
         this.palos = new LinkedList<>();
         
         palos.add(oros = new ArrayDeque<>());
-        palos.add(bastos = new ArrayDeque<>());
-        palos.add(copas = new ArrayDeque<>());
         palos.add(espadas = new ArrayDeque<>());
+        palos.add(copas = new ArrayDeque<>());
+        palos.add(bastos = new ArrayDeque<>());
     }
     
     /**
@@ -43,8 +45,7 @@ public class Mesa {
         int i = 0;
         boolean added = false;
             
-        while (!c.getPalo().toString().equalsIgnoreCase(
-                palos.get(i).toString())) {
+        while (!c.getPalo().toString().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
             i++;
         }
         Carta peque = (Carta) palos.get(i).getFirst();
@@ -77,19 +78,32 @@ public class Mesa {
         return added;
     }
     
+    public String toStringPalo(int pos) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        Carta c;
+        if (palos.get(pos).isEmpty()) {
+            sb.append("*Palo vacío*");
+        } else {
+            while (i < palos.get(pos).size()) {
+                c = (Carta) palos.get(i).pop();
+                sb.append(c.getValor()).append(" de ").append(c.getPalo().name()).append("\n");
+                palos.get(i).push(c);
+            }
+        }
+
+        return sb.toString();
+    }
+    
     @Override 
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
-        sb.append("Mesa:");
+        sb.append("Mesa:\n");
         for (int i = 0; i < palos.size(); i++) {
-            for (int j = 0; j < palos.get(i).size(); j++) {
-                sb.append(palos.get(i).toString());
-            }   
+            sb.append("Palo: ").append(Carta.PALO.values()[i].name());
+            sb.append(toStringPalo(i));
         }
         return sb.toString(); 
     } 
-	
-    //Cambio desde el sandbox
-    //Cambio desde el Pc original 
-    //Cambiado desde portatil
+
 }
