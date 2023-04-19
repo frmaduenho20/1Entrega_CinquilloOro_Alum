@@ -68,12 +68,12 @@ public Juego(IU iu){
     }
  
     public int pedirNumJugadores(){ //Añadir si Escribe Cuatro, cuatro CUATRO...
-       int numJugadores = 0;
+        int numJugadores = 0;
        
         do {
             System.out.println("Cuantos jugadores tendremos en la partida?");
             numJugadores = iu.leeNum("Selecciona 3 o 4: ");
-        } while (numJugadores != 3 && numJugadores != 4);
+        }while (numJugadores != 3 && numJugadores != 4);
         
         return numJugadores;
     }
@@ -103,21 +103,15 @@ public Juego(IU iu){
      */
     public void repartirCartas(Cola<Jugador> jugadores, Baraja baraja){
         Jugador j;
-        int numCartasMano;
+        int numCartasMano = 48;
         
-        if(numJugadores == 3){  // hacer más genérico con NUMCARTASBARAJA / numJugadores
-            numCartasMano = 16;
-        }else{
-            numCartasMano = 12;
-        }
-        
+        numCartasMano = numCartasMano / jugadores.tamaño();
         
         for (int i = 0; i < jugadores.tamaño(); i++) {
-            j = jugadores.primero(); // usar aquí suprimir
+            j = jugadores.suprimir();
             for (int k = 0; k < numCartasMano; k++) {
                 j.getMano().addCarta(baraja.popCarta()); // usar el j. añadir carta nuevo
             }
-            jugadores.suprimir(); // quitar el suprimir porque ya se usa arriba
             jugadores.insertar(j);
         }
     }
@@ -129,8 +123,6 @@ public Juego(IU iu){
     public Jugador empiezaJugador(Cola<Jugador> jugadores){
         
         Jugador j;
-        
-//        Random aleatorio = new Random(System.currentTimeMillis());
         
         int posAleatoria;
         

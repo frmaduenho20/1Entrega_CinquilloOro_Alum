@@ -3,21 +3,19 @@
  */
 package es.uvigo.esei.aed1.core;
 import java.util.LinkedList;
-//import java.util.List;
+import java.util.List;
 
 
 public class Mano { //hacer privada
     
-    LinkedList<Carta> mano; //Con list llega como interfaz y luego creamos en el constructor con la clase LinkedList
-    int numCartas; // Sobra porque se usa el size, eliminar también getters y modificar donde aparezca
+    private List<Carta> mano; 
 
     public Mano() {
        mano = new LinkedList<>();
-       numCartas = 0;
     }
 
     public int getNumCartas() {
-        return numCartas;
+        return mano.size();
     }
     
     public Carta getCarta(int pos){
@@ -26,11 +24,9 @@ public class Mano { //hacer privada
     
     public void addCarta(Carta nueva){
         mano.add(nueva);
-        numCartas++;
     }
     
     public Carta sacarCarta(int pos){
-        numCartas--;
         return mano.remove(pos);
     }
     
