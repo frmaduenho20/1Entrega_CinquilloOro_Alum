@@ -5,7 +5,7 @@
 * Funcionalidad: saber si es posible colocar una carta en la mesa, colocar una carta en la mesa, mostrar la mesa
  */
 package es.uvigo.esei.aed1.core;
-
+import java.util.Deque;
 
 public class Mesa {
 
