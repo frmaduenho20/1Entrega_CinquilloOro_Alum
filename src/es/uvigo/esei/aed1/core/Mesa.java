@@ -5,25 +5,87 @@
 * Funcionalidad: saber si es posible colocar una carta en la mesa, colocar una carta en la mesa, mostrar la mesa
  */
 package es.uvigo.esei.aed1.core;
+import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class Mesa {
-
+    private Deque<Carta> oros;
+    private Deque<Carta> bastos;
+    private Deque<Carta> copas;
+    private Deque<Carta> espadas;
+    private List<Deque>palos;
+    
+    
 	
     //constructor
-	public Mesa(){
-     
+    public Mesa(){
+        
+        this.palos = new LinkedList<>();
+        
+        palos.add(oros = new ArrayDeque<>());
+        palos.add(bastos = new ArrayDeque<>());
+        palos.add(copas = new ArrayDeque<>());
+        palos.add(espadas = new ArrayDeque<>());
     }
+    
+    /**
+     * Metodo que introduce cartas en la mesa, si la carta se puede introducir,
+     * la carta se introduce a la mesa y devuelve true. Si la carta no se puede
+     * introducir salta un mensaje de error y devuelve false
+     * 
+     * @param c es la carta que quieres introducir
+     * @return devules true si se añadió la carta, falso si no se añadió
+     */
+    public boolean addCartaMesa(Carta c){
+        int i = 0;
+        boolean added = false;
+            
+        while (!c.getPalo().toString().equalsIgnoreCase(
+                palos.get(i).toString())) {
+            i++;
+        }
+        Carta peque = (Carta) palos.get(i).getFirst();
+        Carta grande = (Carta) palos.get(i).getLast();
+        if (palos.get(i).isEmpty()) {
 
-	//añadir más funcionalidades
+            if (c.getValor() == 5) {
+                palos.get(i).add(c);
+                added = true;
+            } else {
+                System.err.println("Si no esta el 5 de "
+                        + c.getPalo().toString().toLowerCase()
+                        + " no se puede añadir la carta");
+            }
+        }else if(c.getValor() == peque.getValor() - 1 ){
+            
+            palos.get(i).addFirst(c);
+            added = true;
+            
+        }else if(c.getValor() == grande.getValor() + 1){
+            
+            palos.get(i).addLast(c);
+            added = true;
+            
+        }else{
+            System.err.println("La carta que intentas "
+                    + "meter no es consecutiva...");
+        }
 
-
-	// mostrar el estado de la mesa 
+        return added;
+    }
+    
     @Override 
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
-        sb.append("Mesa{"); 
-        sb.append('}'); 
+        sb.append("Mesa:");
+        for (int i = 0; i < palos.size(); i++) {
+            for (int j = 0; j < palos.get(i).size(); j++) {
+                sb.append(palos.get(i).toString());
+            }   
+        }
         return sb.toString(); 
     } 
 	

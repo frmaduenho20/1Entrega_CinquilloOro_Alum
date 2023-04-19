@@ -26,9 +26,9 @@ public class Baraja{
         baraja = new LinkedList<>();
         Carta c;
         
-        for (int i = 0; i < Carta.Palo.values().length; i++) {
+        for (int i = 0; i < Carta.PALO.values().length; i++) {
             for (int j = 1; j <= CARTAS_PALO; j++) {  
-                c = new Carta(Carta.Palo.values()[i], j);
+                c = new Carta(Carta.PALO.values()[i], j);
                 baraja.add(c);
             }    
         }

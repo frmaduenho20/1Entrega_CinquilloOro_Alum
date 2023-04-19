@@ -11,6 +11,7 @@ import cola.Cola;
 //import es.uvigo.esei.aed1.core.Baraja;
 //import es.uvigo.esei.aed1.core.Jugador;
 import es.uvigo.esei.aed1.iu.IU;
+import es.uvigo.esei.aed1.core.Mesa;
 //import java.util.Iterator;
 //import java.util.LinkedList;
 //import java.util.List;
@@ -48,10 +49,7 @@ public Juego(IU iu){
         
         System.out.println("Empieza el jugador: " 
                 + empiezaJugador(jugadores).getNombreJugador());
-        
-        System.out.println("Mano del primer jugador de la cola");
-        
-        System.out.println(jugadores.primero().toStringMano());
+
     }
     public Cola<Jugador> getJugadores() {
         return jugadores;

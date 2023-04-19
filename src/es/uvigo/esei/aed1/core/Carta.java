@@ -6,11 +6,11 @@
 package es.uvigo.esei.aed1.core;
 
 public class Carta {
-    public enum Palo{OROS, ESPADAS, COPAS, BASTOS};
-    private Palo palo; 
+    public static enum PALO{OROS, ESPADAS, COPAS, BASTOS};
+    private PALO palo; 
     private int valor;
 
-    public Carta(Palo palo, int valor) {
+    public Carta(PALO palo, int valor) {
         this.palo = palo;
         this.valor = valor;
     }
@@ -23,11 +23,11 @@ public class Carta {
         this.valor = valor;
     }
 
-    public Palo getPalo() {
+    public PALO getPalo() {
         return palo;
     }
 
-    public void setPalo(Palo palo) {
+    public void setPalo(PALO palo) {
         this.palo = palo;
     }
 
