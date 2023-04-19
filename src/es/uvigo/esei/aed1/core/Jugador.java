@@ -7,27 +7,50 @@
 package es.uvigo.esei.aed1.core;
 
 //import java.util.LinkedList;
+
+import java.util.List;
+
 //import java.util.List;
 
 
-public class Jugador {
+public class Jugador extends Mano{
     private final String nombreJugador;
     private Mano mano; //Sobra el new mano y hay que meterlo en el constructor this.mano = new Mano()
 
-    public Jugador(String nombreJugador) {
+    public Jugador(String nombreJugador, List<Carta> mano) {
+        super(mano);
         this.nombreJugador = nombreJugador;
-        this.mano = new Mano();
+    }
+
+    @Override
+    public int getNumCartas() {
+        return mano.getNumCartas();
+    }
+    
+    @Override
+    public Carta getCarta(int pos){
+       return mano.getCarta(pos);
+   }
+    
+    @Override
+    public void addCarta(Carta nueva){
+        mano.addCarta(nueva);
+    }
+    
+    @Override
+    public Carta sacarCarta(int pos){
+        return mano.sacarCarta(pos);
     }
 
     public String getNombreJugador() {
         return nombreJugador;
     }
 
-    public Mano getMano() {
+    private Mano getMano() {
         return mano;
     }
 
-    public void setMano(Mano mano) {
+    private void setMano(Mano mano) {
         this.mano = mano;
     }
     
@@ -35,7 +58,7 @@ public class Jugador {
         return mano.getNumCartas();
     }
     
-    public Carta sacarCartaMano(int pos){ // crear añadir carta y repartir según este nuevo método
+    private Carta sacarCartaMano(int pos){ // crear añadir carta y repartir según este nuevo método
         return mano.sacarCarta(pos);
     }
     

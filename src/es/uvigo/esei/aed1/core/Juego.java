@@ -87,7 +87,7 @@ public Juego(IU iu){
         
         Jugador j;
         for (int i = 0; i < nombres.length; i++) {
-            j = new Jugador(nombres[i]);
+            j = new Jugador(nombres[i], null);
             jugadores.insertar(j);
         }
         
@@ -110,7 +110,7 @@ public Juego(IU iu){
         for (int i = 0; i < jugadores.tamaño(); i++) {
             j = jugadores.suprimir();
             for (int k = 0; k < numCartasMano; k++) {
-                j.getMano().addCarta(baraja.popCarta()); // usar el j. añadir carta nuevo
+                j.addCarta(baraja.popCarta()); // usar el j. añadir carta nuevo
             }
             jugadores.insertar(j);
         }

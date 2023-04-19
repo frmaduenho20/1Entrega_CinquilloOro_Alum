@@ -6,13 +6,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Mano { //hacer privada
+abstract class Mano { //hacer privada
     
     private List<Carta> mano; 
 
-    public Mano() {
-       mano = new LinkedList<>();
+    public Mano(List<Carta> mano) {
+        this.mano = mano;
     }
+
 
     public int getNumCartas() {
         return mano.size();
