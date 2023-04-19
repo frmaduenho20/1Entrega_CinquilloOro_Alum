@@ -42,7 +42,8 @@ public class Jugador{
         StringBuilder sb = new StringBuilder();
         System.out.println("\nMostrando la mano del jugador: ");
         for (int i = 0; i < getNumCartasMano(); i++) {
-            sb.append(mano.get(i));
+            sb.append(i+1).append(": ");
+            sb.append(mano.get(i).toString());
             sb.append("\n");
         }
         

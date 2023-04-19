@@ -41,7 +41,7 @@ public class Mesa {
      * @param c es la carta que quieres introducir
      * @return devules true si se añadió la carta, falso si no se añadió
      */
-    public boolean addCartaMesa(Carta c){
+    public boolean addCartaMesa(Carta c){ // TODO Arreglar error
         int i = 0;
         boolean added = false;
             

@@ -23,12 +23,14 @@ public class Juego{
   private final IU iu;
   private Cola<Jugador> jugadores;
   private Baraja baraja;
+  private Mesa mesa;
     
     
 public Juego(IU iu){
     this.iu = iu;
     this.jugadores = new EnlazadaCola();
     this.baraja = new Baraja();
+    this.mesa = new Mesa();
 }
 
     public void jugar() {
@@ -47,8 +49,51 @@ public Juego(IU iu){
             jugadores.insertar(jugadores.suprimir());
         }
         
-        System.out.println("Empieza el jugador: " 
-                + empiezaJugador(jugadores).getNombreJugador());
+//        System.out.println("Empieza el jugador: " 
+//                + empiezaJugador(jugadores).getNombreJugador());
+
+        // Empezamos con el juego real
+        
+        empiezaJugador(jugadores); // Decidimos quien empieza
+        char op = '-';
+        boolean added;
+        boolean fin = false;
+        int numCarta = 0;
+        
+        do {
+            System.out.println(jugadores.primero());
+            do {
+                op = iu.leeString("Quieres sacar una carta (c) o pasar (p)?").charAt(0);
+            } while (op != 'c' && op != 'p');
+            
+            if (op == 'c') {
+                
+                do {
+                    numCarta = iu.leeNum("Qué carta quieres sacar?(1-"+ jugadores.primero().getNumCartasMano() + "): ");
+                    
+                    if (numCarta < 1 || numCarta >= jugadores.primero().getNumCartasMano()) {
+                        System.out.println("Elige una posición válida");
+                    }
+                } while (numCarta < 1 || numCarta >= jugadores.primero().getNumCartasMano()); 
+                numCarta--;
+                added = mesa.addCartaMesa(jugadores.primero().sacarCartaMano(numCarta));
+                
+                
+                if (jugadores.primero().getMano().isEmpty()) {
+                    fin = true;
+                }else {
+                    if (added) {
+                        jugadores.insertar(jugadores.suprimir());
+                    }
+                }
+            } else{
+                jugadores.insertar(jugadores.suprimir());
+            }
+            
+            
+        } while (fin == false);
+        
+        System.out.println("Ganador: " + jugadores.primero().getNombreJugador());
 
     }
     public Cola<Jugador> getJugadores() {
