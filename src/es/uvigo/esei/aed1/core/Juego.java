@@ -11,6 +11,7 @@ import cola.Cola;
 //import es.uvigo.esei.aed1.core.Baraja;
 //import es.uvigo.esei.aed1.core.Jugador;
 import es.uvigo.esei.aed1.iu.IU;
+import java.util.Iterator;
 //import java.util.LinkedList;
 //import java.util.List;
 //import java.util.ListIterator;
@@ -20,20 +21,18 @@ import es.uvigo.esei.aed1.iu.IU;
 public class Juego{
   private final IU iu;
   private Cola<Jugador> jugadores;
-  private int numJugadores;
   private Baraja baraja;
     
     
 public Juego(IU iu){
     this.iu = iu;
     this.jugadores = new EnlazadaCola();
-    this.numJugadores = pedirNumJugadores();
     this.baraja = new Baraja();
 }
 
     public void jugar() {
         System.out.println("Creando Jugadores... ");
-        crearJugadores( iu.pedirDatosJugadores(numJugadores));
+        crearJugadores( iu.pedirDatosJugadores(getNumJugadores()));
         
         System.out.println("Barajando...");
         baraja.barajar();
@@ -42,7 +41,7 @@ public Juego(IU iu){
         repartirCartas(jugadores, baraja);
         
         System.out.println("Mostrando jugadores con sus manos...");
-        for (int i = 0; i < numJugadores; i++) {
+        for (int i = 0; i < jugadores.tamaño(); i++) {
             System.out.println(jugadores.primero().toString());
             jugadores.insertar(jugadores.suprimir());
         }
@@ -60,7 +59,7 @@ public Juego(IU iu){
     }
 
     public int getNumJugadores() {
-        return numJugadores;
+        return jugadores.tamaño();
     }
 
     public Baraja getBaraja() {
@@ -82,7 +81,7 @@ public Juego(IU iu){
         
         Collection<String> nombresJugadores = pedirDatosJugadores;
         
-        String [] nombres = new String[numJugadores];
+        String [] nombres = new String[jugadores.tamaño()];
         nombres = nombresJugadores.toArray(nombres);
         
         Jugador j;
@@ -98,12 +97,13 @@ public Juego(IU iu){
      * si son 3 reparte 16 a cada jugador
      * si son 4 reparte 12 a cada jugador
      * 
-     * @param Cola de jugadores
-     * @param Lista baraja ya barajada
+     * @param jugadores una cola de los jugadores
+     * @param baraja una lista de cartas barajada
      */
     public void repartirCartas(Cola<Jugador> jugadores, Baraja baraja){
         Jugador j;
-        int numCartasMano = 48;
+        int numCartasMano = baraja.CARTAS_BARAJA;
+        Iterator <Carta> itr = baraja.getBaraja().iterator();
         
         numCartasMano = numCartasMano / jugadores.tamaño();
         
@@ -115,6 +115,7 @@ public Juego(IU iu){
             jugadores.insertar(j);
         }
     }
+    
     /**
      * Selecciona aleatoriamente el jugador que empieza el jugador
      * @param Cola de los jugadores
@@ -126,7 +127,7 @@ public Juego(IU iu){
         
         int posAleatoria;
         
-        posAleatoria = (int) (Math.random() * numJugadores) + 1;;
+        posAleatoria = (int) (Math.random() * jugadores.tamaño()) + 1;;
         System.out.println("Posición del jugador que inicia :" + posAleatoria);//Borrar luego
 
         for (int k = 1; k < posAleatoria; k++){

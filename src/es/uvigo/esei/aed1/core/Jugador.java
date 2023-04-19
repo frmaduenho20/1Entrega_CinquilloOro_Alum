@@ -62,6 +62,10 @@ public class Jugador extends Mano{
         return mano.sacarCarta(pos);
     }
     
+    public void addCartaMano(Carta c){
+        mano.addCarta(c);
+    }
+    
     public String toStringMano(){
         return mano.toString();
     }

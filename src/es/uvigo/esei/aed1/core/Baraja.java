@@ -5,13 +5,15 @@
  */
 
 package es.uvigo.esei.aed1.core;
+
 import java.util.LinkedList;
 import java.util.List;
 //import java.util.List;
 //import java.util.Random;
 //import es.uvigo.esei.aed1.iu.IU;
 
-public class Baraja {
+
+public class Baraja{
 
     public final int CARTAS_BARAJA=48;
     public final int CARTAS_PALO=12;
@@ -55,6 +57,20 @@ public class Baraja {
         }
         baraja = nuevaBaraja;
     }
+
+    public int getCARTAS_BARAJA() {
+        return CARTAS_BARAJA;
+    }
+
+    public int getCARTAS_PALO() {
+        return CARTAS_PALO;
+    }
+
+    
+    public List<Carta> getBaraja() {
+        return baraja;
+    }
+    
     
     public Carta popCarta(){
         return baraja.remove(0);
