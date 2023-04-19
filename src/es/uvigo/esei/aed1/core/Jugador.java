@@ -6,75 +6,56 @@
 
 package es.uvigo.esei.aed1.core;
 
-//import java.util.LinkedList;
-
+import java.util.LinkedList;
 import java.util.List;
 
-//import java.util.List;
-
-
-public class Jugador extends Mano{
+public class Jugador{
     private final String nombreJugador;
-    private Mano mano; //Sobra el new mano y hay que meterlo en el constructor this.mano = new Mano()
+    private List<Carta> mano;
 
-    public Jugador(String nombreJugador, List<Carta> mano) {
-        super(mano);
+    public Jugador(String nombreJugador) {
+        mano = new LinkedList<>();
         this.nombreJugador = nombreJugador;
-    }
-
-    @Override
-    public int getNumCartas() {
-        return mano.getNumCartas();
-    }
-    
-    @Override
-    public Carta getCarta(int pos){
-       return mano.getCarta(pos);
-   }
-    
-    @Override
-    public void addCarta(Carta nueva){
-        mano.addCarta(nueva);
-    }
-    
-    @Override
-    public Carta sacarCarta(int pos){
-        return mano.sacarCarta(pos);
     }
 
     public String getNombreJugador() {
         return nombreJugador;
     }
-
-    private Mano getMano() {
-        return mano;
-    }
-
-    private void setMano(Mano mano) {
-        this.mano = mano;
-    }
     
     public int getNumCartasMano(){
-        return mano.getNumCartas();
+        return mano.size();
     }
     
-    private Carta sacarCartaMano(int pos){ // crear añadir carta y repartir según este nuevo método
-        return mano.sacarCarta(pos);
+    public Carta sacarCartaMano(int pos){
+        return mano.remove(pos);
     }
     
     public void addCartaMano(Carta c){
-        mano.addCarta(c);
-    }
-    
-    public String toStringMano(){
-        return mano.toString();
+        mano.add(c);
     }
 
+    public List<Carta> getMano() {
+        return mano;
+    }
+
+    public String toStringMano(){
+        StringBuilder sb = new StringBuilder();
+        System.out.println("\nMostrando la mano del jugador: ");
+        for (int i = 0; i < getNumCartasMano(); i++) {
+            sb.append(mano.get(i));
+            sb.append("\n");
+        }
+        
+        return sb.toString();
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Jugador: ").append(nombreJugador);
-        sb.append("\nMano: \n").append(getMano()).append("\n");
+        sb.append("\n");
+        sb.append(toStringMano());
+        sb.append("\n");
         
         return sb.toString();
     }

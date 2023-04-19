@@ -1,4 +1,12 @@
 /*
+
+
+
+NO USAMOS ESTA CLASE
+
+
+
+
  * Representa la mano de cada jugador, formada por 12 o 16 cartas
  */
 package es.uvigo.esei.aed1.core;
@@ -6,12 +14,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-abstract class Mano { //hacer privada
+public class Mano { //hacer privada
     
     private List<Carta> mano; 
 
-    public Mano(List<Carta> mano) {
-        this.mano = mano;
+    public Mano() {
+        this.mano = new LinkedList<>();
     }
 
 

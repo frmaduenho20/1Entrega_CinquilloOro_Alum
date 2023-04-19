@@ -64,21 +64,24 @@ public class IU {
        
         do {
             System.out.println("Cuantos jugadores tendremos en la partida?");
-            numJugadores = leeNum("Selecciona 3 o 4");
+            numJugadores = leeNum("Selecciona 3 o 4: ");
         } while (numJugadores != 3 && numJugadores != 4);
         
         return numJugadores;
     }
 
-    public Collection<String> pedirDatosJugadores(int numJugadores){ // no pedir el numJugadores si no que llamar al método getNumJugadores
+    public Collection<String> pedirDatosJugadores(){
 
         List<String> nombresJugadores = new LinkedList<>();
         String nombreJugador;
+        
+        int numJ = getNumJugadores();
 
-        for (int i = 0; i < numJugadores; i++) {
+        for (int i = 0; i < numJ; i++) {
             do {
                 nombreJugador = leeString("Introduce el nombre del jugador " + (i+1) + ": ");
             } while (nombreJugador.trim().equals(""));
+            
             //Agregar jugador a la cola
             nombresJugadores.add(nombreJugador);
         }
