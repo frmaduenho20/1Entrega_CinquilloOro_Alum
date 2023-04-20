@@ -41,41 +41,54 @@ public class Mesa {
      * @param c es la carta que quieres introducir
      * @return devules true si se añadió la carta, falso si no se añadió
      */
-    public boolean addCartaMesa(Carta c){ // TODO Arreglar error
+    public Carta addCartaMesa(Carta c){ // TODO Arreglar error
         int i = 0;
         boolean added = false;
             
-        while (!c.getPalo().toString().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
+        
+        while (i < Carta.PALO.values().length-1 || !(c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name()))) {
             i++;
+            System.out.println("Valor de i en el while= "+i); //Borrar
         }
-        Carta peque = (Carta) palos.get(i).getFirst();
-        Carta grande = (Carta) palos.get(i).getLast();
+        System.out.println("Valor de i al salir del while= "+i); //Borrar
+
         if (palos.get(i).isEmpty()) {
 
             if (c.getValor() == 5) {
                 palos.get(i).add(c);
                 added = true;
+                System.out.println("Añadida la carta: "+palos.get(i).getFirst().toString());
             } else {
                 System.err.println("Si no esta el 5 de "
                         + c.getPalo().toString().toLowerCase()
                         + " no se puede añadir la carta");
             }
-        }else if(c.getValor() == peque.getValor() - 1 ){
+        }else {
+         
+            Carta peque = (Carta) palos.get(i).getFirst();
+            Carta grande = (Carta) palos.get(i).getLast();
             
-            palos.get(i).addFirst(c);
-            added = true;
-            
-        }else if(c.getValor() == grande.getValor() + 1){
-            
-            palos.get(i).addLast(c);
-            added = true;
-            
-        }else{
-            System.err.println("La carta que intentas "
-                    + "meter no es consecutiva...");
-        }
+            if (c.getValor() == peque.getValor() - 1) {
 
-        return added;
+                palos.get(i).addFirst(c);
+                added = true;
+                System.out.println("Añadida la carta: "+palos.get(i).getFirst().toString());
+
+            } else if (c.getValor() == grande.getValor() + 1) {
+
+                palos.get(i).addLast(c);
+                added = true;
+                System.out.println("Añadida la carta: "+palos.get(i).getLast().toString());
+
+            } else {
+                System.err.println("La carta que intentas "
+                        + "meter no es consecutiva...");
+            }
+        }
+        if (added) {
+            c = null;
+        }
+        return c;
     }
     
     public String toStringPalo(int pos) {
@@ -86,9 +99,9 @@ public class Mesa {
             sb.append("*Palo vacío*");
         } else {
             while (i < palos.get(pos).size()) {
-                c = (Carta) palos.get(i).pop();
+                c = (Carta) palos.get(pos).remove();
                 sb.append(c.getValor()).append(" de ").append(c.getPalo().name()).append("\n");
-                palos.get(i).push(c);
+                palos.get(pos).add(c);
             }
         }
 
@@ -99,10 +112,21 @@ public class Mesa {
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
         sb.append("Mesa:\n");
+        boolean vacia = true;
         for (int i = 0; i < palos.size(); i++) {
+            if (!palos.get(i).isEmpty()) {
+                vacia = false;
+            }
+        }
+        if (vacia) {
+            sb.append("*Vacía*");
+        } else {
+            for (int i = 0; i < palos.size(); i++) {
             sb.append("Palo: ").append(Carta.PALO.values()[i].name());
             sb.append(toStringPalo(i));
         }
+        }
+        
         return sb.toString(); 
     } 
 

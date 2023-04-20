@@ -59,28 +59,34 @@ public Juego(IU iu){
         boolean added;
         boolean fin = false;
         int numCarta = 0;
+        Carta c;
         
         do {
+            System.out.println("\n"+mesa.toString());
             System.out.println(jugadores.primero());
             do {
-                op = iu.leeString("Quieres sacar una carta (c) o pasar (p)?").charAt(0);
+                op = iu.leeString("\n"+"Quieres sacar una carta (c) o pasar (p)? ").charAt(0); // TODO cambiar a 0 para salir, como luego le hacemos numCarta-- representará el valor -1
             } while (op != 'c' && op != 'p');
             
             if (op == 'c') {
                 
                 do {
-                    numCarta = iu.leeNum("Qué carta quieres sacar?(1-"+ jugadores.primero().getNumCartasMano() + "): ");
+                    numCarta = iu.leeNum("\n"+"Qué carta quieres sacar?(1-"+ jugadores.primero().getNumCartasMano() + "): ");
                     
-                    if (numCarta < 1 || numCarta >= jugadores.primero().getNumCartasMano()) {
+                    if (numCarta < 1 || numCarta > jugadores.primero().getNumCartasMano()) {
                         System.out.println("Elige una posición válida");
                     }
-                } while (numCarta < 1 || numCarta >= jugadores.primero().getNumCartasMano()); 
+                } while (numCarta < 1 || numCarta > jugadores.primero().getNumCartasMano()); 
                 numCarta--;
-                added = mesa.addCartaMesa(jugadores.primero().sacarCartaMano(numCarta));
-                
+                c = mesa.addCartaMesa(jugadores.primero().sacarCartaMano(numCarta)); // Hay que validar que la carta se puede sacar o no cumple las condiciones del juego, si no la elimina aunque no la use
+                if (c!=null) {
+                    jugadores.primero().addCartaMano(c); // Parcheado por aquí abajo
+                    added = false;
+                } else added = true;
                 
                 if (jugadores.primero().getMano().isEmpty()) {
                     fin = true;
+                    System.out.println(mesa.toString());
                 }else {
                     if (added) {
                         jugadores.insertar(jugadores.suprimir());
