@@ -17,22 +17,22 @@ public class Mesa {
     private Deque<Carta> espadas;
     private Deque<Carta> copas;
     private Deque<Carta> bastos;
-    
+
     private List<Deque> palos;
-    
-    
-	
+
+
+
     //constructor
     public Mesa(){
-        
+
         this.palos = new LinkedList<>();
-        
+
         palos.add(oros = new ArrayDeque<>());
         palos.add(espadas = new ArrayDeque<>());
         palos.add(copas = new ArrayDeque<>());
         palos.add(bastos = new ArrayDeque<>());
     }
-    
+
     /**
      * Metodo que introduce cartas en la mesa, si la carta se puede introducir,
      * la carta se introduce a la mesa y devuelve true. Si la carta no se puede
@@ -42,15 +42,15 @@ public class Mesa {
      * @return devules true si se añadió la carta, falso si no se añadió
      */
     public Carta addCartaMesa(Carta c){ // TODO Arreglar error
-        
+
         int i = 0;
         boolean added = false;
-            
+
         System.out.println(c.toString());
-        
+
         while (i < Carta.PALO.values().length-1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
             i++;
-            
+
         }
 
         if (palos.get(i).isEmpty()) {
@@ -65,10 +65,10 @@ public class Mesa {
                         + " no se puede añadir la carta");
             }
         }else {
-         
+
             Carta peque = (Carta) palos.get(i).getFirst();
             Carta grande = (Carta) palos.get(i).getLast();
-            
+
             if (c.getValor() == peque.getValor() - 1) {
 
                 palos.get(i).addFirst(c);
@@ -91,7 +91,7 @@ public class Mesa {
         }
         return c;
     }
-    
+
     public String toStringPalo(int pos) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
@@ -108,7 +108,7 @@ public class Mesa {
                 } else {
                     sb.append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ");
                 }
-                
+
                 palos.get(pos).add(c);
                 i++;
             }
@@ -116,7 +116,7 @@ public class Mesa {
 
         return sb.toString();
     }
-    
+
     @Override 
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
@@ -135,7 +135,7 @@ public class Mesa {
             sb.append(toStringPalo(i));
         }
         }
-        
+
         return sb.toString(); 
     } 
 
