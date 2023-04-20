@@ -102,11 +102,14 @@ public class Mesa {
             while (i < palos.get(pos).size()) {
                 c = (Carta) palos.get(pos).remove();
                 if (c.getValor() == 1) {
-                    sb.append("|| ").append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ");
+//                    sb.append("|| ").append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ");
+                    sb.append(" || ").append(c.getValor()).append(" -");
                 } else if (c.getValor() == 12) {
-                    sb.append("").append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ||");
+//                    sb.append("").append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ||");
+                    sb.append("- ").append(c.getValor()).append(" || ");
                 } else {
-                    sb.append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ");
+//                    sb.append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ");
+                    sb.append("- ").append(c.getValor()).append(" -");
                 }
 
                 palos.get(pos).add(c);
