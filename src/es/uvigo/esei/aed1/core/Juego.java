@@ -10,7 +10,7 @@ import java.util.Collection;
 
 import cola.Cola;
 import es.uvigo.esei.aed1.iu.IU;
-import es.uvigo.esei.aed1.core.Mesa;
+
 
 public class Juego{
   private final IU iu;
@@ -65,7 +65,8 @@ public Juego(IU iu){
                 }
             } while (numCarta < 1 || numCarta > jugadores.primero().getNumCartasMano());
             numCarta--;
-            c = mesa.addCartaMesa(jugadores.primero().sacarCartaMano(numCarta)); // Hay que validar que la carta se puede sacar o no cumple las condiciones del juego, si no la elimina aunque no la use
+            c = mesa.addCartaMesa(jugadores.primero().sacarCartaMano(numCarta)); 
+
             
             if (c != null) {
                 jugadores.primero().addCartaMano(c); // Parcheado por aquí abajo
@@ -135,7 +136,7 @@ public Juego(IU iu){
         for (int i = 0; i < jugadores.tamaño(); i++) {
             j = jugadores.suprimir();
             for (int k = 0; k < numCartasMano; k++){
-                j.addCartaMano(baraja.popCarta()); // usar el j. añadir carta nuevo
+                j.addCartaMano(baraja.popCarta()); 
             }
             jugadores.insertar(j);
         }
@@ -153,7 +154,6 @@ public Juego(IU iu){
         int posAleatoria;
         
         posAleatoria = (int) (Math.random() * jugadores.tamaño()) + 1;;
-        System.out.println("Posición del jugador que inicia :" + posAleatoria);//Borrar luego
 
         for (int k = 1; k < posAleatoria; k++){
             j = jugadores.suprimir();

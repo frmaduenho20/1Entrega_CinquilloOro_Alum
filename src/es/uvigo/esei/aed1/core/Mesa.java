@@ -89,6 +89,12 @@ public class Mesa {
         return c;
     }
     
+    /**
+     * Comprueba la mano del jugador que se le pasa por parametro 
+     * y que tenga una carta que se pueda añadir a la mesa. Si tiene return true, si no return false.
+     * @param mano
+     * @return devuelve si el jugador puede jugar. 
+     */
     public boolean comprobarMano(List<Carta> mano){ 
 
         int i;
@@ -129,7 +135,12 @@ public class Mesa {
         
         return puede;
     }
-
+/**
+ * Muestra los palos de la mesa y devuelve un string del palo con la 
+ * posicion que se le pasa por parametro.
+ * @param pos
+ * @return string del palo.
+ */
     public String toStringPalo(int pos) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
@@ -140,13 +151,13 @@ public class Mesa {
             while (i < palos.get(pos).size()) {
                 c = (Carta) palos.get(pos).remove();
                 if (c.getValor() == 1) {
-//                    sb.append("|| ").append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ");
+
                     sb.append(" || ").append(c.getValor()).append(" -");
                 } else if (c.getValor() == 12) {
-//                    sb.append("").append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ||");
+
                     sb.append("- ").append(c.getValor()).append(" || ");
                 } else {
-//                    sb.append(c.getValor()).append(" de ").append(c.getPalo().name()).append(" ");
+
                     sb.append("- ").append(c.getValor()).append(" -");
                 }
 
