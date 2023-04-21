@@ -1,3 +1,4 @@
+
 /**
  * Representa el juego del Cinquillo-Oro, con sus reglas (definidas en el documento Primera entrega). 
  * Se recomienda una implementación modular.
@@ -18,7 +19,7 @@ import java.util.List;
 //import java.util.ListIterator;
 //import java.util.Random;
 
-
+//Holaaa
 public class Juego{
   private final IU iu;
   private Cola<Jugador> jugadores;
