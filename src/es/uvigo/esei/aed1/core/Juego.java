@@ -9,17 +9,9 @@ import cola.*;
 import java.util.Collection;
 
 import cola.Cola;
-//import es.uvigo.esei.aed1.core.Baraja;
-//import es.uvigo.esei.aed1.core.Jugador;
 import es.uvigo.esei.aed1.iu.IU;
 import es.uvigo.esei.aed1.core.Mesa;
-//import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-//import java.util.ListIterator;
-//import java.util.Random;
 
-//Holaaa
 public class Juego{
   private final IU iu;
   private Cola<Jugador> jugadores;
@@ -151,7 +143,7 @@ public Juego(IU iu){
     
     /**
      * Selecciona aleatoriamente el jugador que empieza el jugador
-     * @param Cola de los jugadores
+     * @param jugadores
      * @return jugador que empieza la partida
      */
     public Jugador empiezaJugador(Cola<Jugador> jugadores){
