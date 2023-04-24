@@ -7,10 +7,9 @@
 package es.uvigo.esei.aed1.core;
 import java.util.ArrayDeque;
 import java.util.Deque;
+//import java.util.Queue;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import es.uvigo.esei.aed1.core.Carta;
 
 public class Mesa {
     private Deque<Carta> oros;
@@ -19,8 +18,6 @@ public class Mesa {
     private Deque<Carta> bastos;
 
     private List<Deque> palos;
-
-
 
     //constructor
     public Mesa(){

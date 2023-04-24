@@ -2,13 +2,10 @@
  * Representa la interfaz del juego del Cinquillo-Oro, en este proyecto va a ser una entrada/salida en modo texto 
  * Se recomienda una implementación modular.
  */
-// 
+
 package es.uvigo.esei.aed1.iu;
 
-//import es.uvigo.esei.aed1.core.Jugador;
-//import es.uvigo.esei.aed1.core.Juego;
 import java.util.Collection;
-//import cola.*;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
