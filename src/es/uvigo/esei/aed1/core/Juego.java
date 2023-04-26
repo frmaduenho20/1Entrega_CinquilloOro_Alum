@@ -17,6 +17,9 @@ public class Juego{
   private Cola<Jugador> jugadores;
   private Baraja baraja;
   private Mesa mesa;
+  //private static final PUNTOS_PARTIDA = 2;
+  //private static final PUNTOS_AS_DE_ORO = 2;
+  //private contadorPartidas = ; Poner a 0 e incrementarlo al iniciar la partida o a 1 e incrementarlo al final de la partida si no se colocó el As de Oros
     
     
 public Juego(IU iu){
@@ -86,9 +89,11 @@ public Juego(IU iu){
 
         } while (fin == false);
 
-            System.out.println("\nGanador: " + jugadores.primero().getNombreJugador());
-        
+            System.out.println("\nGanador: " + jugadores.primero().getNombreJugador()); //TODO en vez de ganador, sumamos 2 puntos por ganar la partida, incrementamos el contador de partidas. Si no se sacó el As de Oros volvemos al principio.
+        //TODO comprobación de si está el As de Oros, o por el metodo añadir o por un metodo estaCartaMesa()
 
+        //TODO Mostrar Una tabla ordenada de los jugadores con sus puntos acumulados (Mostrar puesto, puede haber varios en la misma posición)
+        
     }
     public Cola<Jugador> getJugadores() {
         return jugadores;

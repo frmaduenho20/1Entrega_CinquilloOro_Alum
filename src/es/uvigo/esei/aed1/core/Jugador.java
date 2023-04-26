@@ -12,6 +12,7 @@ import java.util.List;
 public class Jugador{
     private final String nombreJugador;
     private List<Carta> mano;
+    //private int puntosPartida; //TODO Impelmentarlo y modificar todo lo necesario
 
     public Jugador(String nombreJugador) {
         mano = new LinkedList<>();

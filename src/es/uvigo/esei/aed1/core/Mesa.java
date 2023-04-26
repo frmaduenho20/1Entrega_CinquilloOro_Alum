@@ -38,7 +38,7 @@ public class Mesa {
      * @param c es la carta que quieres introducir
      * @return devules true si se añadió la carta, falso si no se añadió
      */
-    public Carta addCartaMesa(Carta c){ 
+    public Carta addCartaMesa(Carta c){ //TODO hacer comprobación que si la carta es As de Oros y se puede añadir sumamos (contador de partidas * 2)
 
         int i = 0;
         boolean added = false;
@@ -81,6 +81,9 @@ public class Mesa {
             }
         }
         if (added) {
+//            if () { //Si es el As de Oros añadimos los puntos al jugador
+//                
+//            }
             c = null;
         }
         return c;
