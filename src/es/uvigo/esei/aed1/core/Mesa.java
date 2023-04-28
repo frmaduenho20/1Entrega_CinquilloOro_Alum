@@ -38,7 +38,7 @@ public class Mesa {
      * @param c es la carta que quieres introducir
      * @return devules true si se añadió la carta, falso si no se añadió
      */
-    public Carta addCartaMesa(Carta c){ //TODO hacer comprobación que si la carta es As de Oros y se puede añadir sumamos (contador de partidas * 2)
+    public Carta addCartaMesa(Carta c){ //TODO Pasar todo el método a Jugador y enviar aquí la carta despues de comprobar que se puede introducir //TODO hacer comprobación que si la carta es As de Oros y se puede añadir sumamos (contador de partidas * 2)
 
         int i = 0;
         boolean added = false;
@@ -91,48 +91,38 @@ public class Mesa {
     
     /**
      * Comprueba la mano del jugador que se le pasa por parametro 
-     * y que tenga una carta que se pueda añadir a la mesa. Si tiene return true, si no return false.
-     * @param mano
+     * y que tenga una carta que se pueda añadir a la mesa.Si tiene return true, si no return false.
+     * @param c
      * @return devuelve si el jugador puede jugar. 
      */
-    public boolean comprobarMano(List<Carta> mano){ 
+    public boolean comprobarCartaMano(Carta c){ 
 
-        int i;
+        int i = 0;
         boolean puede = false;
-        Carta c;
+        Carta peque;
+        Carta grande;
 
-        int j = 0;
-        while (j < mano.size() && puede == false) {
-            
-            c = mano.get(j);
-            
-            i=0;
-            while (i < Carta.PALO.values().length - 1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
-                i++;
-
-            }
-
-            if (palos.get(i).isEmpty()) {
-                if (c.getValor() == 5) {
-                    puede = true;
-                }
-                
-            } else {
-
-                Carta peque = (Carta) palos.get(i).getFirst();
-                Carta grande = (Carta) palos.get(i).getLast();
-
-                if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
-                    puede = true;
-
-                }
-            }
-            
-            j++;
+        while (i < Carta.PALO.values().length - 1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
+            i++;
 
         }
-        
-        
+
+        if (palos.get(i).isEmpty()) {
+            if (c.getValor() == 5) {
+                puede = true;
+            }
+
+        } else {//TODO no funciona esta parte cuando se añaden todos los 5
+
+            peque = (Carta) palos.get(i).getFirst();
+            grande = (Carta) palos.get(i).getLast();
+
+            if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
+                puede = true;
+
+            }
+        }
+
         return puede;
     }
 /**

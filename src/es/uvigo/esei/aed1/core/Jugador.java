@@ -6,17 +6,20 @@
 
 package es.uvigo.esei.aed1.core;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Jugador{
     private final String nombreJugador;
     private List<Carta> mano;
+    private Mesa mesa;
     //private int puntosPartida; //TODO Impelmentarlo y modificar todo lo necesario
 
     public Jugador(String nombreJugador) {
         mano = new LinkedList<>();
         this.nombreJugador = nombreJugador;
+        this.mesa = new Mesa();
     }
 
     public String getNombreJugador() {
@@ -35,8 +38,23 @@ public class Jugador{
         mano.add(c);
     }
 
-    public List<Carta> getMano() {
-        return mano;
+//    public List<Carta> getMano() {
+//        return mano;
+//    }
+    
+    public boolean comprobarMano(){
+        Iterator itr = mano.iterator();
+        boolean puede = false;
+        Carta c;
+        while (puede==false && itr.hasNext()) {
+            c = (Carta) itr.next();
+            if (mesa.comprobarCartaMano(c) == true) {
+                puede = true;
+            }
+            
+        }
+        
+        return puede;
     }
 
     public String toStringMano(){

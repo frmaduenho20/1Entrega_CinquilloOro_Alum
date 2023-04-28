@@ -18,17 +18,17 @@ public class Carta {
         return valor;
     }
 
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
+//    public void setValor(int valor) {
+//        this.valor = valor;
+//    }
 
     public PALO getPalo() {
         return palo;
     }
 
-    public void setPalo(PALO palo) {
-        this.palo = palo;
-    }
+//    public void setPalo(PALO palo) {
+//        this.palo = palo;
+//    }
 
     @Override
     public String toString() {

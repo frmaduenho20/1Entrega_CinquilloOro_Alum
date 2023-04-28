@@ -55,18 +55,18 @@ public class Baraja{
         baraja = nuevaBaraja;
     }
 
-    public int getCARTAS_BARAJA() {
-        return CARTAS_BARAJA;
-    }
+//    public int getCARTAS_BARAJA() {
+//        return CARTAS_BARAJA;
+//    }
 
-    public int getCARTAS_PALO() {
-        return CARTAS_PALO;
-    }
+//    public int getCARTAS_PALO() {
+//        return CARTAS_PALO;
+//    }
 
     
-    public List<Carta> getBaraja() {
-        return baraja;
-    }
+//    public List<Carta> getBaraja() {
+//        return baraja;
+//    }
     
     
     public Carta popCarta(){
