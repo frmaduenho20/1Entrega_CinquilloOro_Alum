@@ -10,7 +10,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class Jugador{
+    
     private final String nombreJugador;
     private List<Carta> mano;
     private Mesa mesa;
@@ -38,28 +40,62 @@ public class Jugador{
         mano.add(c);
     }
 
-//    public List<Carta> getMano() {
-//        return mano;
-//    }
-    
     public boolean comprobarMano(){
         Iterator itr = mano.iterator();
         boolean puede = false;
         Carta c;
-        while (puede==false && itr.hasNext()) {
+        
+        while (puede == false && itr.hasNext()) {
             c = (Carta) itr.next();
-            if (mesa.comprobarCartaMano(c) == true) {
+            if (comprobarCartaMano(c) == true) {
                 puede = true;
             }
-            
         }
         
         return puede;
     }
+    
+    /**
+     * Comprueba la mano del jugador que se le pasa por parametro 
+     * y que tenga una carta que se pueda añadir a la mesa.Si tiene return true, si no return false.
+     * @param c
+     * @return devuelve si el jugador puede jugar. 
+     */
+    public boolean comprobarCartaMano(Carta c){ 
+
+        int i = 0;
+        boolean valida = false;
+        
+        Carta peque;
+        Carta grande;
+
+        while (i < Carta.PALO.values().length - 1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
+            i++;
+
+        }
+        
+        if (mesa.getPalos().get(i).isEmpty()) {
+            if (c.getValor() == 5) {
+                valida = true;
+            }
+        }
+        else{ //TODO no funciona esta parte cuando se añaden todos los 5
+
+            peque = (Carta) mesa.getPalos().get(i).getFirst();
+            grande = (Carta) mesa.getPalos().get(i).getLast();
+
+            if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
+                valida = true;
+            }
+            
+        }
+
+        return valida;
+    }
 
     public String toStringMano(){
         StringBuilder sb = new StringBuilder();
-        System.out.println("\nMostrando la mano del jugador: ");
+
         for (int i = 0; i < getNumCartasMano(); i++) {
             sb.append(i+1).append(": ");
             sb.append(mano.get(i).toString());
@@ -72,8 +108,9 @@ public class Jugador{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        
         sb.append("Jugador: ").append(nombreJugador);
-        sb.append("\n");
+        sb.append("\nMano del jugador: \n");
         sb.append(toStringMano());
         sb.append("\n");
         

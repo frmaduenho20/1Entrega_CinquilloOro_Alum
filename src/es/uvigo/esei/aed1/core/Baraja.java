@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Baraja{
 
-    public final int CARTAS_BARAJA=48;
     public final int CARTAS_PALO=12;
     private List<Carta> baraja;
     
@@ -32,18 +31,18 @@ public class Baraja{
     } 
     
     public void barajar(){
-        Carta[] cartas = new Carta[CARTAS_BARAJA];
+        Carta[] cartas = new Carta[baraja.size()];
         List<Carta> nuevaBaraja = new LinkedList<>();
         
-        for(int i = 0; i < CARTAS_BARAJA; i++){
+        for(int i = 0; i < 48; i++){
             cartas[i] = baraja.remove(0);
         }
         
-        int numCartas = CARTAS_BARAJA;
+        int numCartas = cartas.length;
         int posAleatoria;
         
-        for(int i = 0; i < CARTAS_BARAJA; i++){
-            posAleatoria = (int) (Math.random() * ((CARTAS_BARAJA - 1) - i));
+        for(int i = 0; i < 48; i++){
+            posAleatoria = (int) (Math.random() * ((48 - 1) - i));
             
             nuevaBaraja.add(cartas[posAleatoria]);
             
@@ -54,20 +53,6 @@ public class Baraja{
         }
         baraja = nuevaBaraja;
     }
-
-//    public int getCARTAS_BARAJA() {
-//        return CARTAS_BARAJA;
-//    }
-
-//    public int getCARTAS_PALO() {
-//        return CARTAS_PALO;
-//    }
-
-    
-//    public List<Carta> getBaraja() {
-//        return baraja;
-//    }
-    
     
     public Carta popCarta(){
         return baraja.remove(0);

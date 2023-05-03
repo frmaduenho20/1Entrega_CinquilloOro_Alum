@@ -30,6 +30,11 @@ public class Mesa {
         palos.add(bastos = new ArrayDeque<>());
     }
 
+    public List<Deque> getPalos() {
+        return palos;
+    }
+    
+
     /**
      * Metodo que introduce cartas en la mesa, si la carta se puede introducir,
      * la carta se introduce a la mesa y devuelve true. Si la carta no se puede
@@ -45,7 +50,6 @@ public class Mesa {
 
         while (i < Carta.PALO.values().length-1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
             i++;
-
         }
 
         if (palos.get(i).isEmpty()) {
@@ -53,11 +57,13 @@ public class Mesa {
             if (c.getValor() == 5) {
                 palos.get(i).add(c);
                 added = true;
-                System.out.println("\nAñadida la carta: "+palos.get(i).getFirst().toString());
+                System.out.println("\nAñadida la carta: " + palos.get(i).getFirst().toString());
+                
             } else {
-                System.out.println("\n!!!Si no esta el 5 de "
+                
+                System.out.println("\nSi no esta el 5 de "
                         + c.getPalo().toString().toLowerCase()
-                        + " no se puede añadir la carta¡¡¡");
+                        + " no se puede añadir la carta!!!");
             }
         }else {
 
@@ -75,9 +81,10 @@ public class Mesa {
                 palos.get(i).addLast(c);
                 added = true;
                 System.out.println("\nAñadida la carta: "+palos.get(i).getLast().toString());
-
+                
             } else {
-                System.out.println("\n!!!La carta ("+c.toString()+") no es consecutiva¡¡¡");
+                
+                System.out.println("\nLa carta ("+c.toString()+") no es consecutiva!!!");
             }
         }
         if (added) {
@@ -88,72 +95,79 @@ public class Mesa {
         }
         return c;
     }
+
+    
+//    /**
+//     * Comprueba la mano del jugador que se le pasa por parametro 
+//     * y que tenga una carta que se pueda añadir a la mesa.Si tiene return true, si no return false.
+//     * @param c
+//     * @return devuelve si el jugador puede jugar. 
+//     */
+//    public boolean comprobarCartaMano(Carta c){ 
+//
+//        int i = 0;
+//        boolean puede = false;
+//        Carta peque;
+//        Carta grande;
+//
+//        while (i < Carta.PALO.values().length - 1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
+//            i++;
+//
+//        }
+//
+//        if (palos.get(i).isEmpty()) {
+//            if (c.getValor() == 5) {
+//                puede = true;
+//            }
+//
+//        } else {//TODO no funciona esta parte cuando se añaden todos los 5
+//
+//            peque = (Carta) palos.get(i).getFirst();
+//            grande = (Carta) palos.get(i).getLast();
+//
+//            if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
+//                puede = true;
+//
+//            }
+//        }
+//
+//        return puede;
+//    }
     
     /**
-     * Comprueba la mano del jugador que se le pasa por parametro 
-     * y que tenga una carta que se pueda añadir a la mesa.Si tiene return true, si no return false.
-     * @param c
-     * @return devuelve si el jugador puede jugar. 
+     * Muestra los palos de la mesa y devuelve un string del palo con la 
+     * posicion que se le pasa por parametro.
+     * @param pos
+     * @return string del palo.
      */
-    public boolean comprobarCartaMano(Carta c){ 
-
-        int i = 0;
-        boolean puede = false;
-        Carta peque;
-        Carta grande;
-
-        while (i < Carta.PALO.values().length - 1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
-            i++;
-
-        }
-
-        if (palos.get(i).isEmpty()) {
-            if (c.getValor() == 5) {
-                puede = true;
-            }
-
-        } else {//TODO no funciona esta parte cuando se añaden todos los 5
-
-            peque = (Carta) palos.get(i).getFirst();
-            grande = (Carta) palos.get(i).getLast();
-
-            if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
-                puede = true;
-
-            }
-        }
-
-        return puede;
-    }
-/**
- * Muestra los palos de la mesa y devuelve un string del palo con la 
- * posicion que se le pasa por parametro.
- * @param pos
- * @return string del palo.
- */
+    
     public String toStringPalo(int pos) {
         StringBuilder sb = new StringBuilder();
         int i = 0;
         Carta c;
+        
         if (palos.get(pos).isEmpty()) {
-            sb.append(" *Palo vacío*");
+            
+            sb.append("*Palo vacío*");
         } else {
+            
             while (i < palos.get(pos).size()) {
                 c = (Carta) palos.get(pos).remove();
                 if (c.getValor() == 1) {
-
                     sb.append(" || ").append(c.getValor()).append(" -");
-                } else if (c.getValor() == 12) {
+                } 
+                else if (c.getValor() == 12) {
 
                     sb.append("- ").append(c.getValor()).append(" || ");
-                } else {
-
+                } 
+                else {
                     sb.append("- ").append(c.getValor()).append(" -");
                 }
 
                 palos.get(pos).add(c);
                 i++;
             }
+            
         }
 
         return sb.toString();
@@ -161,21 +175,26 @@ public class Mesa {
 
     @Override 
     public String toString() { 
+        
         StringBuilder sb = new StringBuilder(); 
-        sb.append("Mesa:\n");
         boolean vacia = true;
+        
+        sb.append("Mesa:\n");
+        
         for (int i = 0; i < palos.size(); i++) {
             if (!palos.get(i).isEmpty()) {
                 vacia = false;
             }
         }
+        
         if (vacia) {
-            sb.append("\n*Vacía*");
-        } else {
+            sb.append("*Vacia*");
+        } 
+        else {
             for (int i = 0; i < palos.size(); i++) {
-            sb.append("\n").append(Carta.PALO.values()[i].name()).append(": ");
-            sb.append(toStringPalo(i));
-        }
+                sb.append("\n").append(Carta.PALO.values()[i].name()).append(": ");
+                sb.append(toStringPalo(i));
+            }
         }
 
         return sb.toString(); 

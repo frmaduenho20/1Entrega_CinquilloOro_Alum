@@ -5,8 +5,11 @@
 
 package es.uvigo.esei.aed1.iu;
 
+import cola.Cola;
+import es.uvigo.esei.aed1.core.Jugador;
 import java.util.Collection;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -85,5 +88,22 @@ public class IU {
         return nombresJugadores;
     }
     
+    public void mostrarJugador(Jugador jugador){
+        System.out.println(jugador.toString());
+    }
+    
+    public void mostrarJugadores(Cola<Jugador> jugadores){
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("Mostrando los jugadores: \n\n");
+        
+        for (int i = 0; i < jugadores.tamaño(); i++) {
+            sb.append(jugadores.primero().toString());
+            jugadores.insertar(jugadores.suprimir());
+        }
+        sb.toString();
+        
+        System.out.println(sb);
+    }
     
 }
