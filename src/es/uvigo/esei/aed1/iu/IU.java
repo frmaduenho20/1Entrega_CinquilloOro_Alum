@@ -9,7 +9,6 @@ import cola.Cola;
 import es.uvigo.esei.aed1.core.Jugador;
 import java.util.Collection;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;

@@ -28,9 +28,14 @@ public class Jugador{
         return nombreJugador;
     }
     
+    /**
+     * Metodo que devulve el numero de carta que tiene la mano del juagdor
+     * @return int numero de cartas que tiene el jugador
+     */
     public int getNumCartasMano(){
         return mano.size();
     }
+    
     
     public Carta sacarCartaMano(int pos){
         return mano.remove(pos);
@@ -39,7 +44,14 @@ public class Jugador{
     public void addCartaMano(Carta c){
         mano.add(c);
     }
-
+    
+    /**
+     * Metodo que compruba carta por carta de la mano si 
+     * se puede introducir en la mesa
+     * 
+     * @return boolean true si tiene alguna carta para jugar 
+     * y false si no tiene ninguna carta para jugar.
+     */
     public boolean comprobarMano(){
         Iterator itr = mano.iterator();
         boolean puede = false;
@@ -47,6 +59,7 @@ public class Jugador{
         
         while (puede == false && itr.hasNext()) {
             c = (Carta) itr.next();
+            
             if (comprobarCartaMano(c) == true) {
                 puede = true;
             }
@@ -65,31 +78,26 @@ public class Jugador{
 
         int i = 0;
         boolean valida = false;
-        
-        Carta peque;
-        Carta grande;
 
-        while (i < Carta.PALO.values().length - 1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
+        while (i < Carta.PALO.values().length - 1 && !c.getPalo().name()
+                .equalsIgnoreCase(Carta.PALO.values()[i].name())) {
             i++;
-
         }
         
-        if (mesa.getPalos().get(i).isEmpty()) {
-            if (c.getValor() == 5) {
-                valida = true;
-            }
+        Carta peque = (Carta) mesa.getPalos()[i].getFirst();
+        Carta grande = (Carta) mesa.getPalos()[i].getLast();
+       
+        if (mesa.getPalos()[i].isEmpty() && c.getValor() == 5) {
+            valida = true;
         }
-        else{ //TODO no funciona esta parte cuando se añaden todos los 5
-
-            peque = (Carta) mesa.getPalos().get(i).getFirst();
-            grande = (Carta) mesa.getPalos().get(i).getLast();
-
-            if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
-                valida = true;
-            }
+         //TODO no funciona esta parte cuando se añaden todos los 5
+        else if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
+            valida = true;
             
+        }else{
+            valida = false;
         }
-
+        
         return valida;
     }
 

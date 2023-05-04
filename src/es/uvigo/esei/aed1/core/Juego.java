@@ -25,23 +25,10 @@ public class Juego{
 public Juego(IU iu){
     this.iu = iu;
     this.jugadores = new EnlazadaCola();
-    this.baraja = new Baraja();
     this.mesa = new Mesa();
 }
 
     public void jugar() {
-        crearJugadores();
-        System.out.println("Creando Jugadores... ");
-        
-        System.out.println("\nBarajando...");
-        baraja.barajar();
-        
-        System.out.println("\nRepartiendo cartas...\n");
-        repartirCartas();
-        
-        iu.mostrarJugadores(jugadores);
-
-        empiezaJugador(); // Decidimos quien empieza
         
         boolean added;
         boolean fin_partida = false;
@@ -49,7 +36,23 @@ public Juego(IU iu){
         int numCarta = 0;
         Carta c; // (!mesa.comprobarCartaMano(jugadores.primero().getMano()))
         
+        crearJugadores();
+        System.out.println("Creando Jugadores... ");
+        
         do {
+            this.baraja = new Baraja();
+            
+            System.out.println("\nBarajando...");
+            baraja.barajar();
+        
+            System.out.println("\nRepartiendo cartas...\n");
+            repartirCartas();
+            
+            iu.mostrarJugadores(jugadores);
+            
+            empiezaJugador(); // Decidimos quien empieza
+
+            
             do {
                 // TODO Arreglar bug cuando se añaden los 4 5s, si no puede jugar se avisa y se pasa
                 if (!turnoJugador().comprobarMano()) { 
@@ -58,7 +61,7 @@ public Juego(IU iu){
                             + " no tiene carta para jugar!!!\n");
                     pasarJugador();
                     
-                } else {
+                } else{
                     
                     System.out.println( mesa.toString());
                     
@@ -66,29 +69,30 @@ public Juego(IU iu){
                     
                     numCarta = pedirPosCarta();
                     
-                    c = mesa.addCartaMesa(turnoJugador().sacarCartaMano(numCarta));
+                    c = turnoJugador().sacarCartaMano(numCarta);
                     
-//                    if (c != null) {
-//                        turnoJugador().addCartaMano(c);
-//                        added = false;
-//                    } else {
-//                        added = true;
-//                    }
-                    added = anhadida(c); // este metodo resume los el if de arriba
-
-                    if (turnoJugador().getNumCartasMano() == 0) { //TODO metodo comprobación de suma puntos partida
+                    added = mesa.addCartaMesa(c);
+                    
+                    if(!added){
+                        turnoJugador().addCartaMano(mesa.devolverCarta(c));
+                    }
+                    else if (turnoJugador().getNumCartasMano() == 0) { //TODO metodo comprobación de suma puntos partida
                         fin_partida = true;
                         
                         System.out.println(mesa.toString());
                     } 
                     else {
-                        if (added) {
+                        if (added == true) {
                             pasarJugador();
                         }
                     }
                 }
 
             } while (fin_partida == false);
+            // Una vez acabada la partida vacia las manos 
+            //de los jugadores para volver a repartir las cartas
+            vaciarManos();
+            
             //TODO metodo comprobación de suma puntos as oros que devuelva boolean fin_juego = true
         } while (fin_juego == false);
         //TODO en vez de ganador, sumamos 2 puntos por ganar la partida, incrementamos el contador de partidas. Si no se sacó el As de Oros volvemos al principio.
@@ -133,9 +137,9 @@ public Juego(IU iu){
         
         int numCartasMano = 48;
         
-        numCartasMano = numCartasMano / jugadores.tamaño();
+        numCartasMano = numCartasMano / getNumJugadores();
         
-        for (int i = 0; i < jugadores.tamaño(); i++) {
+        for (int i = 0; i < getNumJugadores(); i++) {
             j = jugadores.suprimir();
             for (int k = 0; k < numCartasMano; k++){
                 j.addCartaMano(baraja.popCarta()); 
@@ -152,7 +156,7 @@ public Juego(IU iu){
     public Jugador empiezaJugador(){
         int posAleatoria;
 
-        posAleatoria = (int) (Math.random() * jugadores.tamaño()) + 1;
+        posAleatoria = (int) (Math.random() * getNumJugadores()) + 1;
 
         for (int k = 1; k < posAleatoria; k++) {
             pasarJugador();
@@ -224,5 +228,22 @@ public Juego(IU iu){
             anhadida = true;
         }
         return anhadida;
+    }
+    
+    /**
+     * Metodo que vacia las manos de los jugadores una vez que acaba la partida
+     */
+    public void vaciarManos(){
+        
+        Jugador pj = turnoJugador();
+        
+        for(int j = 0; j < getNumJugadores(); j++){
+            if(pj.getNumCartasMano() != 0){
+                for (int i = 0; i < pj.getNumCartasMano(); i++) {
+                    pj.sacarCartaMano(0);
+                }
+            }
+            pasarJugador();
+        }
     }
 }

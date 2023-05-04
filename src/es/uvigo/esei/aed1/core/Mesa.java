@@ -7,32 +7,25 @@
 package es.uvigo.esei.aed1.core;
 import java.util.ArrayDeque;
 import java.util.Deque;
-//import java.util.Queue;
-import java.util.LinkedList;
-import java.util.List;
+
 
 public class Mesa {
-    private Deque<Carta> oros;
-    private Deque<Carta> espadas;
-    private Deque<Carta> copas;
-    private Deque<Carta> bastos;
-
-    private List<Deque> palos;
+    public static final int NUM_PALOS = 4;
+    private Deque[] palos;
 
     //constructor
     public Mesa(){
-
-        this.palos = new LinkedList<>();
-
-        palos.add(oros = new ArrayDeque<>());
-        palos.add(espadas = new ArrayDeque<>());
-        palos.add(copas = new ArrayDeque<>());
-        palos.add(bastos = new ArrayDeque<>());
+        this.palos = new Deque[NUM_PALOS];
+        
+        for (int i = 0; i < NUM_PALOS; i++) {
+            palos[i] = new ArrayDeque<Carta>();
+        }
     }
 
-    public List<Deque> getPalos() {
+    public Deque[] getPalos() {
         return palos;
     }
+    
     
 
     /**
@@ -41,98 +34,102 @@ public class Mesa {
      * introducir salta un mensaje de error y devuelve false
      * 
      * @param c es la carta que quieres introducir
-     * @return devules true si se añadió la carta, falso si no se añadió
+     * @return devuelve true si se añadió la carta, falso si no se añadió
      */
-    public Carta addCartaMesa(Carta c){ //TODO Pasar todo el método a Jugador y enviar aquí la carta despues de comprobar que se puede introducir //TODO hacer comprobación que si la carta es As de Oros y se puede añadir sumamos (contador de partidas * 2)
+    public boolean addCartaMesa(Carta c){ //TODO Pasar todo el método a Jugador y enviar aquí la carta despues de comprobar que se puede introducir //TODO hacer comprobación que si la carta es As de Oros y se puede añadir sumamos (contador de partidas * 2)
 
         int i = 0;
-        boolean added = false;
-
+        boolean added = true;
+        boolean puede = puedeMeterse(c);
+        
+        if(puede){
+            
+            while (i < Carta.PALO.values().length-1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
+                i++;
+            }
+            
+            if(c.getValor() == 5){
+                palos[i].add(c);
+                added = true;
+            }
+            else if(c.getValor() < 5){
+                palos[i].addFirst(c);
+                added = true;
+            }
+            else{
+                palos[i].addLast(c);
+                added = true;
+            }
+            
+            if(added){
+                System.out.println("\nAñadida la carta: " + c.toString());
+            }
+            else{
+                System.out.println("\n La carta no se a podido añadir...");
+            }
+            
+            return added;
+        }
+        else{
+            System.out.println("\nLa carta ("+c.toString()+") no es consecutiva!!!");
+            return false;
+        }
+        
+    }
+    
+    /**
+     * Comprubea si la Carta c pasada por parametro se puede 
+     * introducir en la mesa en su palo correspondiente
+     * @param c Carta que se quiere introducir en la mesa
+     * @return devueleve true si la carta se puede añadir false si no se puede
+     */
+    public boolean puedeMeterse(Carta c){
+        int i = 0;
+        boolean puede = false;
+        
         while (i < Carta.PALO.values().length-1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
             i++;
         }
-
-        if (palos.get(i).isEmpty()) {
-
-            if (c.getValor() == 5) {
-                palos.get(i).add(c);
-                added = true;
-                System.out.println("\nAñadida la carta: " + palos.get(i).getFirst().toString());
-                
-            } else {
-                
-                System.out.println("\nSi no esta el 5 de "
+        
+        if (palos[i].isEmpty() && c.getValor() == 5) {
+            return true;
+        }
+        else if(palos[i].isEmpty() && c.getValor() != 5){
+            System.out.println("\nSi no esta el 5 de "
                         + c.getPalo().toString().toLowerCase()
                         + " no se puede añadir la carta!!!");
-            }
-        }else {
-
-            Carta peque = (Carta) palos.get(i).getFirst();
-            Carta grande = (Carta) palos.get(i).getLast();
-
-            if (c.getValor() == peque.getValor() - 1) {
-
-                palos.get(i).addFirst(c);
-                added = true;
-                System.out.println("\nAñadida la carta: "+palos.get(i).getFirst().toString());
-
-            } else if (c.getValor() == grande.getValor() + 1) {
-
-                palos.get(i).addLast(c);
-                added = true;
-                System.out.println("\nAñadida la carta: "+palos.get(i).getLast().toString());
-                
-            } else {
-                
-                System.out.println("\nLa carta ("+c.toString()+") no es consecutiva!!!");
-            }
+            return false;
         }
-        if (added) {
-//            if () { //Si es el As de Oros añadimos los puntos al jugador
-//                
-//            }
-            c = null;
+        else {
+            if ( !(palos[i].isEmpty()) && c.getValor() != 5){
+                
+                Carta peque = (Carta) palos[i].getFirst();
+                Carta grande = (Carta) palos[i].getLast();
+                
+                if(c.getValor() == (peque.getValor() - 1)){
+                    puede = true;
+                }
+                else if(c.getValor() == (grande.getValor() + 1)){
+                    puede = true;
+                }
+                else{
+                    puede = false;
+                }
+            }
+            return puede;
         }
+
+    }
+    
+    /**
+     * Método que devuleve una carta que no se a podido introducir en la mesa
+     * 
+     * @param c carta que se quiere devolver al jugador
+     * @return carta que no se ha podido introducir en la mesa y se devulve al jugador
+     */
+    public Carta devolverCarta(Carta c){
         return c;
     }
-
-    
-//    /**
-//     * Comprueba la mano del jugador que se le pasa por parametro 
-//     * y que tenga una carta que se pueda añadir a la mesa.Si tiene return true, si no return false.
-//     * @param c
-//     * @return devuelve si el jugador puede jugar. 
-//     */
-//    public boolean comprobarCartaMano(Carta c){ 
-//
-//        int i = 0;
-//        boolean puede = false;
-//        Carta peque;
-//        Carta grande;
-//
-//        while (i < Carta.PALO.values().length - 1 && !c.getPalo().name().equalsIgnoreCase(Carta.PALO.values()[i].name())) {
-//            i++;
-//
-//        }
-//
-//        if (palos.get(i).isEmpty()) {
-//            if (c.getValor() == 5) {
-//                puede = true;
-//            }
-//
-//        } else {//TODO no funciona esta parte cuando se añaden todos los 5
-//
-//            peque = (Carta) palos.get(i).getFirst();
-//            grande = (Carta) palos.get(i).getLast();
-//
-//            if (c.getValor() == peque.getValor() - 1 || c.getValor() == grande.getValor() + 1) {
-//                puede = true;
-//
-//            }
-//        }
-//
-//        return puede;
-//    }
     
     /**
      * Muestra los palos de la mesa y devuelve un string del palo con la 
@@ -146,13 +143,13 @@ public class Mesa {
         int i = 0;
         Carta c;
         
-        if (palos.get(pos).isEmpty()) {
+        if (palos[pos].isEmpty()) {
             
             sb.append("*Palo vacío*");
         } else {
             
-            while (i < palos.get(pos).size()) {
-                c = (Carta) palos.get(pos).remove();
+            while (i < palos[pos].size()) {
+                c = (Carta) palos[pos].remove();
                 if (c.getValor() == 1) {
                     sb.append(" || ").append(c.getValor()).append(" -");
                 } 
@@ -164,7 +161,7 @@ public class Mesa {
                     sb.append("- ").append(c.getValor()).append(" -");
                 }
 
-                palos.get(pos).add(c);
+                palos[pos].add(c);
                 i++;
             }
             
@@ -181,8 +178,8 @@ public class Mesa {
         
         sb.append("Mesa:\n");
         
-        for (int i = 0; i < palos.size(); i++) {
-            if (!palos.get(i).isEmpty()) {
+        for (int i = 0; i < palos.length; i++) {
+            if (!palos[i].isEmpty()) {
                 vacia = false;
             }
         }
@@ -191,7 +188,7 @@ public class Mesa {
             sb.append("*Vacia*");
         } 
         else {
-            for (int i = 0; i < palos.size(); i++) {
+            for (int i = 0; i < palos.length; i++) {
                 sb.append("\n").append(Carta.PALO.values()[i].name()).append(": ");
                 sb.append(toStringPalo(i));
             }
