@@ -26,6 +26,14 @@ public class Mesa {
         return palos;
     }
     
+    public Carta getFirstCartaPalo(int posPalo){
+        return (Carta) palos[posPalo].getFirst();
+    }
+    
+    public Carta getLastCartaPalo(int posPalo){
+        return (Carta) palos[posPalo].getLast();
+    }
+    
     
 
     /**

@@ -34,7 +34,9 @@ public Juego(IU iu){
         boolean fin_partida = false;
         boolean fin_juego = false;
         int numCarta = 0;
-        Carta c; // (!mesa.comprobarCartaMano(jugadores.primero().getMano()))
+ 
+
+        Carta c = null; // (!mesa.comprobarCartaMano(jugadores.primero().getMano()))
         
         crearJugadores();
         System.out.println("Creando Jugadores... ");
@@ -54,11 +56,12 @@ public Juego(IU iu){
 
             
             do {
+
                 // TODO Arreglar bug cuando se añaden los 4 5s, si no puede jugar se avisa y se pasa
-                if (!turnoJugador().comprobarMano()) { 
+                if (turnoJugador().comprobarMano()) { 
                     
                     System.out.println(turnoJugador().getNombreJugador() 
-                            + " no tiene carta para jugar!!!\n");
+                            + " no tiene carta para jugar!!\n");
                     pasarJugador();
                     
                 } else{

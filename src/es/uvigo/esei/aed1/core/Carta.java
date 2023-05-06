@@ -5,6 +5,7 @@
 package es.uvigo.esei.aed1.core;
 
 public class Carta {
+    
     public static enum PALO{OROS, ESPADAS, COPAS, BASTOS};
     private PALO palo; 
     private int valor;
@@ -18,17 +19,9 @@ public class Carta {
         return valor;
     }
 
-//    public void setValor(int valor) {
-//        this.valor = valor;
-//    }
-
     public PALO getPalo() {
         return palo;
     }
-
-//    public void setPalo(PALO palo) {
-//        this.palo = palo;
-//    }
 
     @Override
     public String toString() {
@@ -37,8 +30,6 @@ public class Carta {
         sb.append(palo);
         return sb.toString();
     }
-
-    
     
     
 }
