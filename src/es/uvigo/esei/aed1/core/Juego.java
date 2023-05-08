@@ -58,9 +58,9 @@ public Juego(IU iu){
                    
                 } else{
                     
-                    iu.mostrarMensaje(mesa.toString());
-                    
                     do{
+                        iu.mostrarMensaje(mesa.toString());
+                        
                         iu.mostrarMensaje("\nTurno de: " + turnoJugador().getNombreJugador());
                         
                         numCarta = iu.pedirPosCarta(turnoJugador());
@@ -96,8 +96,8 @@ public Juego(IU iu){
                     }
                     
                 }
-                // Pasa el turno al siguiente jugador
-                pasarJugador();
+                
+                if(!fin_partida) pasarJugador();
                 
             } while (!fin_partida);
             
@@ -111,10 +111,7 @@ public Juego(IU iu){
             
         } while (!fin_juego);
             
-        iu.mostrarMensaje("\nGanador: " + turnoJugador().getNombreJugador());
-        //TODO Mostrar Una tabla ordenada de los jugadores con sus puntos acumulados
-        //(Mostrar puesto, puede haber varios en la misma posición)
-        
+        iu.mostrarGanadores(jugadores);
     }
     
     /**

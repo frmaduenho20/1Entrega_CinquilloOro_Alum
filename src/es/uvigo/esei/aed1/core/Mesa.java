@@ -91,12 +91,7 @@ public class Mesa {
         
         for (int i = 0; i < palos.length; i++) {
            palos[i].clear();
-        }
-        
-    }
-    
-    public boolean estaAsDeOros(){
-        return palos[0].contains(this.asOros);
+        }  
     }
     
     /**

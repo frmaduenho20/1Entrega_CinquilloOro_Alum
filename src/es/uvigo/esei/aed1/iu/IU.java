@@ -88,6 +88,10 @@ public class IU {
         return nombresJugadores;
     }
     
+    /**
+     * Muestra el jugador que se le pasa por parametro
+     * @param jugador 
+     */
     public void mostrarJugador(Jugador jugador){
         System.out.println(jugador.toString());
     }
@@ -131,6 +135,11 @@ public class IU {
         return pos;
     }
     
+    /**
+     * Muestra los Ganadores del juego con los jugadores de la Queue de Jugador
+     * y ademas los elimina de cola
+     * @param j Queue de los jugadores que juegan al juego
+     */
     public void mostrarGanadores(Queue<Jugador> j){
         Jugador[] winners = new Jugador[j.size()];
         StringBuilder sb = new StringBuilder();
@@ -141,36 +150,30 @@ public class IU {
         
         ordenarGanadores(winners);
         
-        sb.append("\nGandores:");
+        sb.append("\nGandor/es del juego:");
         
-        if(winners[0].getPuntos() == winners[1].getPuntos() && winners[0].getPuntos() == winners[1].getPuntos()){
-            for (int i = 0; i < winners.length; i++) {
-                sb.append("\n1º ").append(winners[i].getNombreJugador())
-                        .append(" con: ")
-                        .append(winners[i].getPuntos());     
+        for (int i = 0; i < winners.length; i++) {
+            sb.append("\n").append((i+1));
+            if( (i+1) == 2){
+                sb.append("do ");
+            }else if( i+1 == 4){
+                sb.append("to ");
+            }else{
+                sb.append("ro ");
             }
-        }
-        else if(winners[0].getPuntos() == winners[1].getPuntos()){
-            sb.append("\n1º ").append(winners[1].getNombreJugador()).append(" con: ")
-                    .append(winners[1].getPuntos());
+            sb.append(winners[i].getNombreJugador()).append(" con: ")
+                    .append(winners[i].getPuntos()).append(" puntos");
         }
         
-        else if(winners[1].getPuntos() == winners[2].getPuntos()){
-            sb.append("\n2º ").append(winners[2].getNombreJugador()).append(" con: ")
-                .append(winners[2].getPuntos());
-        }
-        else{
-            for (int i = 0; i < winners.length; i++) {
-                sb.append("\n").append(i + 1).append("º ")
-                        .append(winners[i].getNombreJugador())
-                        .append(" con: ")
-                        .append(winners[i].getPuntos());     
-            }
-        }
         mostrarMensaje(sb.toString());
         
     }
+
     
+    /**
+     * Ordena los jugadores en función de los puntos que estos tengan
+     * @param aux array de jugadores a ordenar
+     */
     public void ordenarGanadores(Jugador[] aux){
         
         for (int pasada = 0; pasada < (aux.length - 1) / 2; pasada++) {
@@ -191,5 +194,6 @@ public class IU {
             }
         }
     }
+    
     
 }
