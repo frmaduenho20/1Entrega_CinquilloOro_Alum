@@ -5,27 +5,31 @@
  */
 
 package es.uvigo.esei.aed1.core;
-import cola.*;
 import java.util.Collection;
 
-import cola.Cola;
+
+import static es.uvigo.esei.aed1.core.Carta.PALO.OROS;
 import es.uvigo.esei.aed1.iu.IU;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 public class Juego{
   private final IU iu;
-  private Cola<Jugador> jugadores;
+  private Queue<Jugador> jugadores;
   private Baraja baraja;
   private Mesa mesa;
-  //private static final PUNTOS_PARTIDA = 2;
-  //private static PUNTOS_AS_DE_ORO = 2;
-  //private contadorPartidas = ; Poner a 0 e incrementarlo al iniciar la partida o a 1 e incrementarlo al final de la partida si no se colocó el As de Oros
-    
+  private Carta asOros;
+  private static final int PUNTOS_PARTIDA = 4;
+  private int pAsOros;
+  
     
 public Juego(IU iu){
     this.iu = iu;
-    this.jugadores = new EnlazadaCola();
+    this.jugadores = new LinkedList<>();
     this.mesa = new Mesa();
+    this.asOros = new Carta(OROS, 1);
+    this.pAsOros = 2;
 }
 
     public void jugar() {
@@ -33,90 +37,97 @@ public Juego(IU iu){
         boolean added;
         boolean fin_partida = false;
         boolean fin_juego = false;
-        int numCarta = 0;
- 
-
-        Carta c = null; // (!mesa.comprobarCartaMano(jugadores.primero().getMano()))
+        int numCarta;
+        Carta c;
         
         crearJugadores();
         System.out.println("Creando Jugadores... ");
         
         do {
-            this.baraja = new Baraja();
             
-            System.out.println("\nBarajando...");
-            baraja.barajar();
-        
-            System.out.println("\nRepartiendo cartas...\n");
-            repartirCartas();
-            
-            iu.mostrarJugadores(jugadores);
-            
-            empiezaJugador(); // Decidimos quien empieza
-
+            empiezaPartida();
             
             do {
-
-                // TODO Arreglar bug cuando se añaden los 4 5s, si no puede jugar se avisa y se pasa
-                if (turnoJugador().comprobarMano()) { 
+                
+                added = false;
+                
+                if (!turnoJugador().comprobarMano(mesa)) {
                     
-                    System.out.println(turnoJugador().getNombreJugador() 
-                            + " no tiene carta para jugar!!\n");
-                    pasarJugador();
-                    
+                   iu.mostrarMensaje("\n" + turnoJugador().getNombreJugador() 
+                           + " no tiene carta para jugar!!");
+                   
                 } else{
                     
-                    System.out.println( mesa.toString());
+                    iu.mostrarMensaje(mesa.toString());
                     
-                    System.out.println("\nTurno de: " + turnoJugador().getNombreJugador());
-                    
-                    numCarta = pedirPosCarta();
-                    
-                    c = turnoJugador().sacarCartaMano(numCarta);
-                    
-                    added = mesa.addCartaMesa(c);
-                    
-                    if(!added){
-                        turnoJugador().addCartaMano(mesa.devolverCarta(c));
-                    }
-                    else if (turnoJugador().getNumCartasMano() == 0) { //TODO metodo comprobación de suma puntos partida
-                        fin_partida = true;
+                    do{
+                        iu.mostrarMensaje("\nTurno de: " + turnoJugador().getNombreJugador());
                         
-                        System.out.println(mesa.toString());
-                    } 
-                    else {
-                        if (added == true) {
-                            pasarJugador();
+                        numCarta = iu.pedirPosCarta(turnoJugador());
+                    
+                        c = turnoJugador().sacarCartaMano(numCarta);
+                        
+                        if(mesa.puedeMeterse(c)){
+                            
+                            added = mesa.addCartatoMesa(c);
+                            
+                            if (c.getPalo().toString().equalsIgnoreCase("OROS") 
+                                    && c.getValor() == 1) {
+                                
+                                if (added) {
+                                    turnoJugador().sumarPuntos(pAsOros);
+                                    fin_juego = true;
+                                }
+                                
+                            }
+                            
+                            iu.mostrarMensaje("\nPuesta la carta: " + c.toString() + "\n");
                         }
+                        else{
+                            turnoJugador().addCartaMano(c);
+                        }
+
+                    }while(!added);
+                    
+                    if(turnoJugador().getNumCartasMano() == 0){
+                        fin_partida = true;
+                        turnoJugador().sumarPuntos(PUNTOS_PARTIDA);
+                        iu.mostrarMensaje(mesa.toString());
                     }
+                    
                 }
-
-            } while (fin_partida == false);
-            // Una vez acabada la partida vacia las manos 
-            //de los jugadores para volver a repartir las cartas
-            vaciarManos();
+                // Pasa el turno al siguiente jugador
+                pasarJugador();
+                
+            } while (!fin_partida);
             
-            //TODO metodo comprobación de suma puntos as oros que devuelva boolean fin_juego = true
-        } while (fin_juego == false);
-        //TODO en vez de ganador, sumamos 2 puntos por ganar la partida, incrementamos el contador de partidas. Si no se sacó el As de Oros volvemos al principio.
-            System.out.println("\nGanador: " + turnoJugador().getNombreJugador()); 
-        //TODO comprobación de si está el As de Oros, o por el metodo añadir o por un metodo estaCartaMesa()
-
-        //TODO Mostrar Una tabla ordenada de los jugadores con sus puntos acumulados (Mostrar puesto, puede haber varios en la misma posición)
+            iu.mostrarMensaje("\nGanador de la partida: " + turnoJugador().getNombreJugador());
+            
+            terminarPartida();
+            
+            if(!fin_juego){
+                this.pAsOros += 2;
+            }
+            
+        } while (!fin_juego);
+            
+        iu.mostrarMensaje("\nGanador: " + turnoJugador().getNombreJugador());
+        //TODO Mostrar Una tabla ordenada de los jugadores con sus puntos acumulados
+        //(Mostrar puesto, puede haber varios en la misma posición)
         
     }
-    public Cola<Jugador> getJugadores() {
-        return jugadores;
-    }
-
-    public void setJugadores(Cola<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }
-
+    
+    /**
+     * Método que devulve la cantidad de jugadores que juegan
+     * @return numero de jugadores que juegan
+     */
     public int getNumJugadores() {
-        return jugadores.tamaño();
+        return jugadores.size();
     }
     
+    /**
+     * Crea los jugadores que van a jugar
+     */
     public void crearJugadores(){
         
         Collection<String> nombresJugadores = iu.pedirDatosJugadores();
@@ -125,7 +136,7 @@ public Juego(IU iu){
         
         for (String s: nombresJugadores){
             j = new Jugador(s);
-            jugadores.insertar(j);
+            jugadores.add(j);
         }
     }
     
@@ -133,7 +144,6 @@ public Juego(IU iu){
      * Reparte las cartas dependiendo de numero de jugadores
      * si son 3 reparte 16 a cada jugador
      * si son 4 reparte 12 a cada jugador
-     * 
      */
     public void repartirCartas(){ 
         Jugador j;
@@ -143,11 +153,11 @@ public Juego(IU iu){
         numCartasMano = numCartasMano / getNumJugadores();
         
         for (int i = 0; i < getNumJugadores(); i++) {
-            j = jugadores.suprimir();
+            j = jugadores.remove();
             for (int k = 0; k < numCartasMano; k++){
                 j.addCartaMano(baraja.popCarta()); 
             }
-            jugadores.insertar(j);
+            jugadores.add(j);
         }
     }
     
@@ -171,8 +181,8 @@ public Juego(IU iu){
     /**
      * Metodo pasa el turno al siguiente jugador
      */
-    public void pasarJugador(){ //TODO usar
-        jugadores.insertar(jugadores.suprimir());
+    public void pasarJugador(){
+        jugadores.add(jugadores.remove());
     }
     
     /**
@@ -181,56 +191,40 @@ public Juego(IU iu){
      * @return jugadores.primero() primer jugador de la cola que le toca sacar carta
      */
     public Jugador turnoJugador(){
-        return jugadores.primero();
+        return jugadores.peek();
     }
     
     /**
-     * Enseña el ganador del juego
+     * Cuando se termina una partida este vacia la mesa 
+     * y las manos de los jugadores e incrementa los puntos del As de Oros
      */
-    public void mostrarGanador(){ //TODO cambiar el ganador simple por una tabla de los jugadores ordenada por sus puntos 
-        System.out.println("\nGanador: " + jugadores.primero().getNombreJugador());
+    public void terminarPartida(){
+        vaciarManos();
+        mesa.vaciarMesa();
     }
     
     /**
-     * Método que pide la posicion de la carta que el 
-     * jugador quiere poner en la mesa
-     * 
-     * @return pos la posicion de carta que se quiere poner en la mesa ya decrementada
+     * Método que empieza la partida, crea la baraja,
+     * baraja esta misma y reparte las cartas
      */
-    public int pedirPosCarta(){
-        int pos = 0;
+    public void empiezaPartida(){
         
-        do { 
-            System.out.println("\n" + turnoJugador().toStringMano());
+        //Creamos la baraja con la que se va a jugar
+        this.baraja = new Baraja();
+        
+        //La barajamos
+        iu.mostrarMensaje("\nBarajando...");
+        baraja.barajar();
 
-            pos = iu.leeNum("Introduce la posicion de la carta que quieras sacar: ");
+        //Repartimos las cartas
+        iu.mostrarMensaje("\nRepartiendo cartas...\n");
+        repartirCartas();
 
-            if (pos < 1 || pos > turnoJugador().getNumCartasMano()) {
-                System.out.println("Elige una posición valida");
-            }
-        } while (pos < 1 || pos > turnoJugador().getNumCartasMano());
-        
-        pos--;
-        
-        return pos;
-    }
-    
-    /**
-     * Metodo que comprueba si la carta se a introducido en la mesa correctamente
-     * 
-     * @param c carta que el jugador quiere añadir
-     * @return true si la carta fue añadida correctamente false si no lo ha hecho
-     */
-    public boolean anhadida(Carta c){
-        boolean anhadida;
-        
-        if (c != null) {
-            turnoJugador().addCartaMano(c);
-            anhadida = false;
-        } else {
-            anhadida = true;
-        }
-        return anhadida;
+        //Se muestran los jugadores que van a jugar
+        iu.mostrarJugadores(jugadores);
+
+        // Se escoge el jugador que empieza aleatoriamente
+        empiezaJugador();
     }
     
     /**
@@ -249,4 +243,5 @@ public Juego(IU iu){
             pasarJugador();
         }
     }
+    
 }

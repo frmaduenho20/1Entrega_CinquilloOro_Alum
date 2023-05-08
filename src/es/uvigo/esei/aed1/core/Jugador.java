@@ -15,17 +15,24 @@ public class Jugador{
     
     private final String nombreJugador;
     private List<Carta> mano;
-    private Mesa mesa;
-    //private int puntosPartida; //TODO Impelmentarlo y modificar todo lo necesario
+    private int puntos; 
 
     public Jugador(String nombreJugador) {
         mano = new LinkedList<>();
         this.nombreJugador = nombreJugador;
-        this.mesa = new Mesa();
+        this.puntos = 0;
     }
 
     public String getNombreJugador() {
-        return nombreJugador;
+        return this.nombreJugador;
+    }
+
+    public int getPuntos() {
+        return this.puntos;
+    }
+
+    private void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
     
     /**
@@ -33,16 +40,16 @@ public class Jugador{
      * @return int numero de cartas que tiene el jugador
      */
     public int getNumCartasMano(){
-        return mano.size();
+        return this.mano.size();
     }
     
     
     public Carta sacarCartaMano(int pos){
-        return mano.remove(pos);
+        return this.mano.remove(pos);
     }
     
     public void addCartaMano(Carta c){
-        mano.add(c);
+        this.mano.add(c);
     }
     
     /**
@@ -52,61 +59,21 @@ public class Jugador{
      * @return boolean true si tiene alguna carta para jugar 
      * y false si no tiene ninguna carta para jugar.
      */
-    public boolean comprobarMano(){
-        
-        int cont = 0;
-        
-        for(Carta car: mano){
-            
-            if(comprobarCartaMano(car)){
-                cont++;
-            } 
-            
-        }
-        return (cont == 0);
-    }
-    
-    /**
-     * Comprueba la mano del jugador que se le pasa por parametro 
-     * y que tenga una carta que se pueda añadir a la mesa.Si tiene return true, si no return false.
-     * @param c
-     * @return devuelve si el jugador puede jugar. 
-     */
-    public boolean comprobarCartaMano(Carta c){ 
-
+    public boolean comprobarMano(Mesa mesa){
+        boolean puede = false;
         int i = 0;
         
-        boolean valida = false;
-
-        while (i < Carta.PALO.values().length - 1 && !c.getPalo().toString()
-                .equalsIgnoreCase(Carta.PALO.values()[i].toString())) {
+        while(!puede && i < mano.size()){
+            
+            Carta c = mano.get(i);
+            puede = mesa.puedeMeterse(c);    
             i++;
         }
-       
-        if (mesa.getPalos()[i].isEmpty() && (c.getValor() == 5)) {
-            return true;
-        }
-        else if( mesa.getPalos()[i].isEmpty() && c.getValor() != 5){
-            return false;
-        }
-        //TODO no funciona esta parte cuando se añaden todos los 5
-        else{
-            
-            if (!(mesa.getPalos()[i].isEmpty()) && c.getValor() != 5) {
-                
-                Carta peque = mesa.getFirstCartaPalo(i);
-                Carta grande = mesa.getLastCartaPalo(i);
-                
-                if(c.getValor() == (peque.getValor() - 1) &&
-                        c.getPalo().toString().equalsIgnoreCase(peque.getPalo().toString())){
-                    return true;
-                    
-                }else return (c.getValor() == (mesa.getLastCartaPalo(i).getValor() + 1) 
-                        && c.getPalo().toString().equalsIgnoreCase(grande.getPalo().toString()));
-            }   
-        }
-        
-        return valida;
+        return puede;
+    }
+    
+    public void sumarPuntos(int puntosGanados){
+        this.setPuntos( getPuntos() + puntosGanados);
     }
 
     public String toStringMano(){
