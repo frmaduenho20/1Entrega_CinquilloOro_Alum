@@ -140,7 +140,7 @@ public class IU {
      * y ademas los elimina de cola
      * @param j Queue de los jugadores que juegan al juego
      */
-    public void mostrarGanadores(Queue<Jugador> j){
+    public void mostrarGanadores(Queue<Jugador> j){ //acceder a ordenar ganadores dentro de Jugador y modificarlo para solo mostrar los ganadores
         Jugador[] winners = new Jugador[j.size()];
         StringBuilder sb = new StringBuilder();
         
@@ -148,13 +148,14 @@ public class IU {
             winners[i] = j.remove();
         }
         
-        ordenarGanadores(winners);
+        ordenarGanadores(winners); // pasará a formar parte de Juego
         
         sb.append("\nGandor/es del juego:");
         
-        for (int i = 0; i < winners.length; i++) {
+        for (int i = 0; i < winners.length; i++) { // while hasta que llegue al final0 (winners[0].getPuntos() != winners[i].getPuntos()) 
+            
             sb.append("\n").append((i+1));
-            if( (i+1) == 2){
+            if( (i+1) == 2){ //TODO cambiar por º más genérico
                 sb.append("do ");
             }else if( i+1 == 4){
                 sb.append("to ");
@@ -162,7 +163,7 @@ public class IU {
                 sb.append("ro ");
             }
             sb.append(winners[i].getNombreJugador()).append(" con: ")
-                    .append(winners[i].getPuntos()).append(" puntos");
+                    .append(winners[i].getPuntos()).append(" puntos"); // TODO sacar del bucle porque solo se muestra para el ganador o ganadores empatados
         }
         
         mostrarMensaje(sb.toString());
@@ -174,7 +175,7 @@ public class IU {
      * Ordena los jugadores en función de los puntos que estos tengan
      * @param aux array de jugadores a ordenar
      */
-    public void ordenarGanadores(Jugador[] aux){
+    public void ordenarGanadores(Jugador[] aux){ //Todo pasar a Juego, usarlo dentro de mostrar ganadores ((no hace falta añadir for de borrado de los jugadores que no tengan los mismos puntos que el primero))
         
         for (int pasada = 0; pasada < (aux.length - 1) / 2; pasada++) {
             for (int j = 0; j < (aux.length - pasada - 1); j++) {

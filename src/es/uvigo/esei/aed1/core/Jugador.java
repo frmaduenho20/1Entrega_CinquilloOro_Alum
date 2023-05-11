@@ -6,7 +6,6 @@
 
 package es.uvigo.esei.aed1.core;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,6 +55,7 @@ public class Jugador{
      * Metodo que compruba carta por carta de la mano si 
      * se puede introducir en la mesa
      * 
+     * @param mesa
      * @return boolean true si tiene alguna carta para jugar 
      * y false si no tiene ninguna carta para jugar.
      */

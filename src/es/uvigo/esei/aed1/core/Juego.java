@@ -19,7 +19,6 @@ public class Juego{
   private Queue<Jugador> jugadores;
   private Baraja baraja;
   private Mesa mesa;
-  private Carta asOros;
   private static final int PUNTOS_PARTIDA = 4;
   private int pAsOros;
   
@@ -28,7 +27,6 @@ public Juego(IU iu){
     this.iu = iu;
     this.jugadores = new LinkedList<>();
     this.mesa = new Mesa();
-    this.asOros = new Carta(OROS, 1);
     this.pAsOros = 2;
 }
 
@@ -47,7 +45,7 @@ public Juego(IU iu){
             
             empiezaPartida();
             
-            do {
+            do {//TODO añadir variable Jugador jugadorConTurno y cambiarlo cada vez que se compruebe o modifique (jugadores.peek() vamos que muestra la información del primer jugador que es el que está jugando)
                 
                 added = false;
                 

@@ -5,7 +5,6 @@
 * Funcionalidad: saber si es posible colocar una carta en la mesa, colocar una carta en la mesa, mostrar la mesa
  */
 package es.uvigo.esei.aed1.core;
-import static es.uvigo.esei.aed1.core.Carta.PALO.OROS;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -14,11 +13,9 @@ import java.util.Deque;
 public class Mesa {
     public static final int NUM_PALOS = 4;
     private Deque<Carta>[] palos;
-    private Carta asOros;
 
     public Mesa(){
         this.palos = new Deque[NUM_PALOS];
-        this.asOros = new Carta(OROS, 1);
         
         for (int i = 0; i < NUM_PALOS; i++) {
             palos[i] = new ArrayDeque<>();
@@ -33,7 +30,7 @@ public class Mesa {
      * @param c es la carta que quieres introducir
      * @return devuelve true si se añadió la carta, falso si no se añadió
      */
-    public boolean addCartatoMesa(Carta c){ 
+    public boolean addCartatoMesa(Carta c){ //TODO añadir un if puedeMeterse(c) y cambiar en juego el llamado (o repetir la comprobación de inserción por su carta anterior o posterior)
         
         int i = c.getPalo().ordinal();
         boolean added;
