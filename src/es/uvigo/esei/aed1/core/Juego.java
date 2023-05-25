@@ -69,7 +69,7 @@ public Juego(IU iu){
                             
                             added = mesa.addCartatoMesa(c);
                             
-                            if (c.getPalo().toString().equalsIgnoreCase("OROS") 
+                            if (c.getPalo().toString().equalsIgnoreCase("OROS") //TODO convertir (c.getPalo().toString().equalsIgnoreCase("OROS") && c.getValor() == 1) en método esLaCarta(int valor, Carta.Palo palo) ( palo == Carta.PALO.OROS)
                                     && c.getValor() == 1) {
                                 
                                 if (added) {
@@ -237,6 +237,12 @@ public Juego(IU iu){
             }
             pasarJugador();
         }
+    }
+    
+    public boolean esLaCarta(int valor, Carta.PALO palo){
+        boolean es = false;
+        
+        return es;
     }
     
 }
